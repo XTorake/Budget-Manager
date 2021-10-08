@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "d3cd9bf0-de60-417a-baa2-58b4056fd547",
+		"name": "BudgetAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+  "item": [
+    {
+			"name": "TokenGenerator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73739e23-fb26-474e-b202-7ea845e06c55",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"var token = jsonData.document.access_token;\r",
+							"postman.setEnvironmentVariable(\"token\", token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\":\"admin\",\n\"password\":\"admin123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/token/generate.php",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"token",
+						"generate.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Image",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/files/uploadimage.php",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"files",
+						"uploadimage.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/files/uploadfile.php",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"files",
+						"uploadfile.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read File Base64",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{DEVServerURL}}/files/readfile.php?filename=5f3ac39e317dd5f3ac39e317e1.png",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"files",
+						"readfile.php"
+					],
+					"query": [
+						{
+							"key": "filename",
+							"value": "5f3ac39e317dd5f3ac39e317e1.png"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FCM Notification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"title of notification\",\r\n    \"subtitle\":\"subtitle of notification\",\r\n    \"body\":\"body of notification\",\r\n    \"iconURL\":\"https://s3.envato.com/files/298518272/80Logo.png\",\r\n    \"iconImage\":\"https://s3.envato.com/files/298518750/profileimg.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/notification/send.php",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"notification",
+						"send.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send Email Notification",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to\":\"nisgyan@gmail.com,info@getautomator.com\",\r\n    \"subject\":\"sbuject of email\",\r\n    \"body\":\"body of email\",\r\n    \"cc\":\"nishant@migids.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{DEVServerURL}}/notification/sendemail.php",
+					"host": [
+						"{{DEVServerURL}}"
+					],
+					"path": [
+						"notification",
+						"sendemail.php"
+					]
+				}
+			},
+			"response": []
+		},
+    {"name": "Accesos - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["accesos","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Accesos - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["accesos","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Accesos - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["accesos","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Accesos - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["accesos","delete.php"] } }, "response": [] }
+,{"name": "Accesos - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_usuario\":\"\",\"id_cuenta\":\"\",\"lectura\":\"\",\"escritura\":\"\",\"modificar\":\"\",\"activo\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["accesos","create.php"] } }, "response": [] }
+,{"name": "Accesos - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_usuario\":\"\",\"id_cuenta\":\"\",\"lectura\":\"\",\"escritura\":\"\",\"modificar\":\"\",\"activo\":\"\",\"_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["accesos","update.php"] } }, "response": [] }
+,{"name": "Accesos - SearchByColumn", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "[{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"}]", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["accesos","search_by_column.php?orAnd=OR&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Accesos - GETByid_usuario", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["accesos","read_by_id_usuario.php?id_usuario=1"] } }, "response": [] }
+,{"name": "Accesos - GETByid_cuenta", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["accesos","read_by_id_cuenta.php?id_cuenta=1"] } }, "response": [] }
+,{"name": "Cat_Categoria - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_categoria","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cat_Categoria - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_categoria","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cat_Categoria - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_categoria","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Cat_Categoria - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_categoria","delete.php"] } }, "response": [] }
+,{"name": "Cat_Categoria - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"categoria\":\"\",\"activo\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_categoria","create.php"] } }, "response": [] }
+,{"name": "Cat_Categoria - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"categoria\":\"\",\"activo\":\"\",\"_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_categoria","update.php"] } }, "response": [] }
+,{"name": "Cat_Categoria - SearchByColumn", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "[{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"}]", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cat_categoria","search_by_column.php?orAnd=OR&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cuenta - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuenta","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cuenta - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuenta","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cuenta - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuenta","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Cuenta - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuenta","delete.php"] } }, "response": [] }
+,{"name": "Cuenta - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_categoria\":\"\",\"cuenta\":\"\",\"descripcion\":\"\",\"color\":\"\",\"activo\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuenta","create.php"] } }, "response": [] }
+,{"name": "Cuenta - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_categoria\":\"\",\"cuenta\":\"\",\"descripcion\":\"\",\"color\":\"\",\"activo\":\"\",\"_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuenta","update.php"] } }, "response": [] }
+,{"name": "Cuenta - SearchByColumn", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "[{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"}]", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuenta","search_by_column.php?orAnd=OR&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Cuenta - GETByid_categoria", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["cuenta","read_by_id_categoria.php?id_categoria=1"] } }, "response": [] }
+,{"name": "Movimiento - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["movimiento","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Movimiento - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["movimiento","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Movimiento - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["movimiento","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Movimiento - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["movimiento","delete.php"] } }, "response": [] }
+,{"name": "Movimiento - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_cuenta\":\"\",\"id_usuario\":\"\",\"fecha\":\"\",\"monto\":\"\",\"descripcion\":\"\",\"es_gasto\":\"\",\"visto\":\"\",\"activo\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["movimiento","create.php"] } }, "response": [] }
+,{"name": "Movimiento - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"id_cuenta\":\"\",\"id_usuario\":\"\",\"fecha\":\"\",\"monto\":\"\",\"descripcion\":\"\",\"es_gasto\":\"\",\"visto\":\"\",\"activo\":\"\",\"_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["movimiento","update.php"] } }, "response": [] }
+,{"name": "Movimiento - SearchByColumn", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "[{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"}]", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["movimiento","search_by_column.php?orAnd=OR&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Movimiento - GETByid_cuenta", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["movimiento","read_by_id_cuenta.php?id_cuenta=1"] } }, "response": [] }
+,{"name": "Movimiento - GETByid_usuario", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["movimiento","read_by_id_usuario.php?id_usuario=1"] } }, "response": [] }
+,{"name": "Usuario - GETALL", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuario","read.php?pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Usuario - Search", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuario","search.php?key=abc&pageno=1&pagesize=30"] } }, "response": [] }
+,{"name": "Usuario - GETByID", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "GET", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuario","read_one.php?id=1"] } }, "response": [] }
+,{"name": "Usuario - Delete", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuario","delete.php"] } }, "response": [] }
+,{"name": "Usuario - Add New", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"correo\":\"\",\"login_password\":\"\",\"login_salt\":\"\",\"admin\":\"\",\"activo\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuario","create.php"] } }, "response": [] }
+,{"name": "Usuario - Update", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "{\"nombre\":\"\",\"correo\":\"\",\"login_password\":\"\",\"login_salt\":\"\",\"admin\":\"\",\"activo\":\"\",\"_id\":\"\"}", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuario","update.php"] } }, "response": [] }
+,{"name": "Usuario - SearchByColumn", "request":{ "auth":{ "type": "bearer", "bearer": [ { "key": "token", "value": "{{token}}", "type": "string"}]},"method": "POST", "header": [ { "key": "Content-Type", "name": "Content-Type", "value": "application/json", "type": "text" } ], "body": { "mode": "raw", "raw": "[{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"},{\"columnName\":\"\",\"columnLogic\":\"LIKE\",\"columnValue\":\"\"}]", "options": { "raw": { "language": "json" } } }, "url": { "raw": "{{DEVServerURL}}", "host": [ "{{DEVServerURL}}" ], "path": ["usuario","search_by_column.php?orAnd=OR&pageno=1&pagesize=30"] } }, "response": [] }
+
+  ],
+	"protocolProfileBehavior": {}
+}
