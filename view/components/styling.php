@@ -31,3 +31,8 @@
 
 <!-- TAILWIND CSS -->
 <!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
+<link rel="shortcut icon" type="image/png" href="http://cdn.mcauto-images-production.sendgrid.net/5e4c42c90c127f93/69592712-ca76-4666-80a5-269b6b76e6fd/377x374.png" />
+<link href="<?=ASSETS?>css/style.css" rel="stylesheet">
+<script src="<?=ASSETS?>vendor/global/global.min.js"></script>
+<script src="<?=ASSETS?>js/custom.min.js"></script>
+<script src="<?=ASSETS?>js/dlabnav-init.js"></script>

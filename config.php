@@ -4,8 +4,8 @@
 
 
 // APPLICATION INFORMATION
-define('APP_DISPLAY_NAME', 'Framework');
-define('APP_NAME', 'framework'); // IMPPORTANT dont use whitespaces nor special characters.
+define('APP_DISPLAY_NAME', 'Budget Manager - El Lugar');
+define('APP_NAME', 'BudgetManager'); // IMPPORTANT dont use whitespaces nor special characters.
 define('APP_VERSION', '1.0.0');
 define('APP_DESCRIPTION', 'Panel for the investors and Admins to check their information on the El Lugar Resort.');
 
