@@ -1,5 +1,5 @@
         <div class="nav-header">
-          <a href="index.html" class="brand-logo">
+          <a href="?p=main" class="brand-logo">
             <img src="http://cdn.mcauto-images-production.sendgrid.net/5e4c42c90c127f93/d2e925e0-7e6f-41c3-b8c7-278fe65c85df/2480x786.jpg" class="img-fluid" alt="Responsive image">
           </a>
           <div class="nav-control">
@@ -230,11 +230,30 @@
                                 </ul>
                             </li> -->
              <li>
-               <a href="#" class="" aria-expanded="false">
-                 <i class="flaticon-381-diamond"></i>
-                 <span class="nav-text">Widget</span>
+               <a href="?p=main" class="" aria-expanded="false">
+                 <i class="fas fa-th-large"></i>
+                 <span class="nav-text">Dashboard</span>
                </a>
              </li>
+             <li>
+               <a href="?p=cuenta" class="" aria-expanded="false">
+                 <i class="fas fa-wallet"></i>
+                 <span class="nav-text">Accounts</span>
+               </a>
+             </li>
+             <li>
+               <a href="?p=movimiento" class="" aria-expanded="false">
+                 <i class="fas fa-money-bill-wave"></i>
+                 <span class="nav-text">Movements</span>
+               </a>
+             </li>
+             <li>
+               <a href="?p=usuario" class="" aria-expanded="false">
+                 <i class="fas fa-users"></i>
+                 <span class="nav-text">Users</span>
+               </a>
+             </li>
+
                           <!-- <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
         							<i class="flaticon-072-printer"></i>
         							<span class="nav-text">Forms</span>
