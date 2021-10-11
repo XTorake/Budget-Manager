@@ -97,7 +97,7 @@ class ViewHandler{
 
 
   public function __getAdminContent(){
-    $page = (isset($_GET['ADMIN_VAR'])) ? $_GET['ADMIN_VAR'] : ADMIN_DEFAULT;
+    $page = (isset($_GET[ADMIN_VAR])) ? $_GET[ADMIN_VAR] : ADMIN_DEFAULT;
     $path = ADMIN.$page.'/'.$page;
     if (!file_exists($path.'.php')) {
       include(NOT_FOUND);
@@ -109,7 +109,7 @@ class ViewHandler{
 
 
   public function __getAdminScript(){
-    $page = (isset($_GET['ADMIN_VAR'])) ? $_GET['ADMIN_VAR'] : ADMIN_DEFAULT;
+    $page = (isset($_GET[ADMIN_VAR])) ? $_GET[ADMIN_VAR] : ADMIN_DEFAULT;
     $path = ADMIN.$page.'/'.$page;
     if (!file_exists($path.'.js')) {
       include(NOT_FOUND);
@@ -139,7 +139,7 @@ class ViewHandler{
 
 
   public function __getPageContent(){
-    $page = (isset($_GET['PAGES_VAR'])) ? $_GET['PAGES_VAR'] : PAGES_DEFAULT;
+    $page = (isset($_GET[PAGES_VAR])) ? $_GET[PAGES_VAR] : PAGES_DEFAULT;
     $path = PAGES.$page.'/'.$page;
     if (!file_exists($path.'.php')) {
       include(NOT_FOUND);
@@ -150,7 +150,7 @@ class ViewHandler{
 
 
   public function __getPageScript(){
-    $page = (isset($_GET['PAGES_VAR'])) ? $_GET['PAGES_VAR'] : PAGES_DEFAULT;
+    $page = (isset($_GET[PAGES_VAR])) ? $_GET[PAGES_VAR] : PAGES_DEFAULT;
     $path = PAGES.$page.'/'.$page;
     if (!file_exists($path.'.js')) {
       include(NOT_FOUND);

@@ -36,11 +36,11 @@
                               <h3 class="text-center mb-4">Budget Manager</h4>
                               <div class="mb-3">
                                 <label class="mb-1"><strong>Email</strong></label>
-                                  <input type="email" class="form-control" placeholder="hello@example.com">
+                                  <input type="email" class="form-control" id="email" placeholder="hello@example.com">
                               </div>
                               <div class="mb-3">
                                 <label class="mb-1"><strong>Password</strong></label>
-                                  <input type="password" class="form-control" placeholder="****************">
+                                  <input type="password" class="form-control" id="password" placeholder="****************">
                               </div>
                               <div class="row d-flex justify-content-between mt-4 mb-2">
 
@@ -64,5 +64,37 @@
   <a href="controller/doLogin.php">Login Client</a>
   <br><br>
   <a href="controller/doLogin.php?admin">Login Admin</a> -->
+
+
+  <script type="text/javascript">
+
+
+
+    //
+    function getLoginData(){
+
+      let data = {
+        email:document.getElementById('email'),
+        password:document.getElementById('password')
+      };
+
+      if(data.email == ''){
+        return false
+      }
+
+      if(data.password == ''){
+        return false
+      }
+
+      return data;
+
+    }
+
+
+
+
+  </script>
+
+
 </body>
 </html>

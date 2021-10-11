@@ -17,11 +17,10 @@
   <div id="main-wrapper">
   <?php $vh->__component('nav'); ?>
   <div class="content-body" style="min-height: 1100px;">
-              <div class="container-fluid">
-  <?php $vh->__getPageContent(); ?>
+    <div class="container-fluid">
+    <?php $vh->__getPageContent(); ?>
 </div>
 </div>
-  
   <?php $vh->__getPageScript(); ?>
   <?php $vh->__component('footer'); ?>
 </div>
