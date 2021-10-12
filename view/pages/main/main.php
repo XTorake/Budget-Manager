@@ -107,7 +107,7 @@
             <p class="mb-1">Account 1</p>
             <h3 class="text-white">250$</h3>
             <div class="progress mb-2 bg-secondary">
-              <div class="progress-bar progress-animated bg-light" style="width: 30%"></div>
+              <div class="progress-bar progress-animated bg-light" style="width: 90%"></div>
             </div>
             <small>30% Increase in 30 Days</small>
           </div>
@@ -126,7 +126,7 @@
             <p class="mb-1">Account 2</p>
             <h3 class="text-white">1000$</h3>
             <div class="progress mb-2 bg-secondary">
-              <div class="progress-bar progress-animated bg-light" style="width: 30%"></div>
+              <div class="progress-bar progress-animated bg-light" style="width: 68%"></div>
             </div>
             <small>30% Increase in 30 Days</small>
           </div>
@@ -145,7 +145,7 @@
             <p class="mb-1">Account 3</p>
             <h3 class="text-white">250$</h3>
             <div class="progress mb-2 bg-secondary">
-              <div class="progress-bar progress-animated bg-light" style="width: 30%"></div>
+              <div class="progress-bar progress-animated bg-light" style="width: 85%"></div>
             </div>
             <small>30% Increase in 30 Days</small>
           </div>
@@ -164,7 +164,7 @@
             <p class="mb-1">Account 4</p>
             <h3 class="text-white">250$</h3>
             <div class="progress mb-2 bg-secondary">
-              <div class="progress-bar progress-animated bg-light" style="width: 30%"></div>
+              <div class="progress-bar progress-animated bg-light" style="width: 40%"></div>
             </div>
             <small>30% Increase in 30 Days</small>
           </div>
