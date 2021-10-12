@@ -99,6 +99,7 @@ $('body').off();
 
 /********************** Funciones del CRUD ***************************/
 function crearMovimiento() {
+  console.log($("#fecha_add").val());
   let data = {
     id_cuenta: $("#cuenta_select_add").val(),
     id_usuario: '1',
@@ -186,7 +187,11 @@ $('body').on('click', '#add_movement_btn', function(e) {
           <div class="row">
             <div class="mb-3 col-md-4">
               <label class="form-label">Date</label>
+<<<<<<< HEAD
               <input id="fecha_add" type="date" class="form-control" placeholder="Saturday 24 June 2017 - 21:44">
+=======
+              <input id="fecha_add" type="datetime-local" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" >
+>>>>>>> fd93b0ae1ad2f61cb4ae3242dd41b4466e71bf9c
             </div>
             <div class="mb-3 col-md-8">
               <label class="form-label">Voucher</label>
@@ -207,9 +212,12 @@ $('body').on('click', '#add_movement_btn', function(e) {
   </div>
   `;
   $('#movement_modal').html(content);
+<<<<<<< HEAD
   // $('#fecha_add').bootstrapMaterialDatePicker({
   //     format: 'dddd DD MMMM YYYY - HH:mm'
   // });
+=======
+>>>>>>> fd93b0ae1ad2f61cb4ae3242dd41b4466e71bf9c
   $('#movement_modal').modal('show');
 });
 $('body').on('click', '.edit_movement_btn', function(e) {
@@ -226,7 +234,7 @@ $('body').on('click', '.edit_movement_btn', function(e) {
               <div class="row">
                 <div class="mb-3 col-md-6">
                   <label class="form-label">Type of Record</label>
-                  <select class="default-select form-control wide" id="es_gasto_select_edit">
+                  <select class="default-select form-control wide" id="es_gasto_select_add">
                     <option>Choose...</option>`;
                     if (data.es_gasto == '1') {
                       content +=`
@@ -241,7 +249,7 @@ $('body').on('click', '.edit_movement_btn', function(e) {
                 </div>
                 <div class="mb-3 col-md-6">
                   <label class="form-label">Account</label>
-                  <select class="default-select form-control wide" id="cuenta_select_edit">
+                  <select class="default-select form-control wide" id="cuenta_select_add">
                     <option>Choose...</option>`;
                     g__cuentas.forEach((cuenta) => {
                       if (data.id_cuenta == cuenta._id){
@@ -259,7 +267,7 @@ $('body').on('click', '.edit_movement_btn', function(e) {
                   <div class="col-auto">
                     <div class="input-group mb-2 input-success">
                       <div class="input-group-text">$</div>
-                      <input id="monto_edit" class="form-control" min="1" step="0.01" placeholder="100,000,000" type="number" value="${data.monto}"/>
+                      <input id="monto_add" class="form-control" min="1" step="0.01" placeholder="100,000,000" type="number" value="${data.monto}"/>
                     </div>
                   </div>
                 </div>
@@ -267,21 +275,21 @@ $('body').on('click', '.edit_movement_btn', function(e) {
               <div class="row">
                 <label class="form-label">Description</label>
                 <div class="mb-12">
-                  <textarea id="descripcion_edit" class="form-control" rows="4">${data.descripcion}</textarea>
+                  <textarea id="descripcion_add" class="form-control" rows="4">${data.descripcion}</textarea>
                 </div>
               </div>
             </br>
             <div class="row">
               <div class="mb-3 col-md-4">
                 <label class="form-label">Date</label>
-                <input id="fecha_edit" type="text" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" value="${data.fecha}">
+                <input id="fecha_edit" type="datetime-local" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" value="${data.fecha}">
               </div>
               <div class="mb-3 col-md-8">
                 <label class="form-label">Voucher</label>
                 <div class="input-group input-info">
                   <span class="input-group-text">Upload</span>
                   <div class="form-file">
-                    <input type="file" id="voucher_edit" class="form-file-input form-control" value="">
+                    <input type="file" id="voucher_add" class="form-file-input form-control" value="">
                   </div>
                 </div>
               </div>
@@ -295,11 +303,14 @@ $('body').on('click', '.edit_movement_btn', function(e) {
     </div>
     `;
   $('#movement_modal').html(content);
+<<<<<<< HEAD
 
   // $('#fecha_edit').bootstrapMaterialDatePicker({
   //     format: 'dddd DD MMMM YYYY - HH:mm'
   // });
 
+=======
+>>>>>>> fd93b0ae1ad2f61cb4ae3242dd41b4466e71bf9c
   $('#movement_modal').modal('show');
 
 });
