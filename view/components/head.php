@@ -20,6 +20,7 @@
   <link href="<?=ASSETS?>vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
   <link href="<?=ASSETS?>css/style.css" rel="stylesheet">
   <link href="<?=ASSETS?>vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+  <link href="<?=ASSETS?>icons/flaticon/flaticon.css" rel="stylesheet">
   <link href="<?=ASSETS?>vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
   <link href="<?=ASSETS?>vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
   <script src="<?=ASSETS?>vendor/apexchart/apexchart.js"></script>
