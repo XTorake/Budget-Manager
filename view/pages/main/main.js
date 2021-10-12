@@ -1,6 +1,6 @@
 var pieChart3 = function(){
    var options = {
-        series: [90, 68, 85],
+        series: [90, 68, 85, 40],
         chart: {
         type: 'donut',
     height:230
@@ -11,7 +11,7 @@ var pieChart3 = function(){
   stroke: {
         width: 0,
       },
-  colors:['#F6AD2E', 'var(--primary)', '#E5D7D4'],
+  colors:['#68e365', '#f72b50', '#d653c1','#ffa755'],
   legend: {
             position: 'bottom',
       show:false

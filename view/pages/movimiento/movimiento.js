@@ -122,6 +122,7 @@ function crearMovimiento() {
       .then(() => {
         swal("Creation successfull!!", "The record has been created!!", "success")
         cargarMovimientos();
+        $('#movement_modal').modal('hide');
 
       });
   } else {
@@ -149,8 +150,7 @@ $('body').on('click', '#add_movement_btn', function(e) {
               <div class="mb-3 col-md-6">
                 <label class="form-label">Type of Record</label>
                 <select class="default-select form-control wide" id="es_gasto_select_add">
-                  <option selected>Choose...</option>
-                  <option value="1">Expense</option>
+                  <option selected value="1">Expense</option>
                   <option value="2">Income</option>
                 </select>
               </div>
