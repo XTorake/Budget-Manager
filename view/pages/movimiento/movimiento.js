@@ -186,7 +186,7 @@ $('body').on('click', '#add_movement_btn', function(e) {
           <div class="row">
             <div class="mb-3 col-md-4">
               <label class="form-label">Date</label>
-              <input id="fecha_add" type="text" class="form-control" placeholder="Saturday 24 June 2017 - 21:44">
+              <input id="fecha_add" type="date" class="form-control" placeholder="Saturday 24 June 2017 - 21:44">
             </div>
             <div class="mb-3 col-md-8">
               <label class="form-label">Voucher</label>
@@ -207,9 +207,9 @@ $('body').on('click', '#add_movement_btn', function(e) {
   </div>
   `;
   $('#movement_modal').html(content);
-  $('#fecha_add').bootstrapMaterialDatePicker({
-      format: 'dddd DD MMMM YYYY - HH:mm'
-  });
+  // $('#fecha_add').bootstrapMaterialDatePicker({
+  //     format: 'dddd DD MMMM YYYY - HH:mm'
+  // });
   $('#movement_modal').modal('show');
 });
 $('body').on('click', '.edit_movement_btn', function(e) {
@@ -295,9 +295,11 @@ $('body').on('click', '.edit_movement_btn', function(e) {
     </div>
     `;
   $('#movement_modal').html(content);
-  $('#fecha_edit').bootstrapMaterialDatePicker({
-      format: 'dddd DD MMMM YYYY - HH:mm'
-  });
+
+  // $('#fecha_edit').bootstrapMaterialDatePicker({
+  //     format: 'dddd DD MMMM YYYY - HH:mm'
+  // });
+
   $('#movement_modal').modal('show');
 
 });
@@ -344,7 +346,7 @@ function cargarCuentas() {
 
 
 function validaciones() {
-  return false;
+  return true;
 
 }
 
