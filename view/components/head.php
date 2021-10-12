@@ -16,22 +16,15 @@
 	<!-- FAVICONS ICON -->
 	<link rel="icon" type="image/png" href="http://cdn.mcauto-images-production.sendgrid.net/5e4c42c90c127f93/69592712-ca76-4666-80a5-269b6b76e6fd/377x374.png" />
 
-
-	<!-- Style css -->
+  <script src="<?=ASSETS?>vendor/jquery/jquery.min.js"></script>
+  <link href="<?=ASSETS?>vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
   <link href="<?=ASSETS?>css/style.css" rel="stylesheet">
   <link href="<?=ASSETS?>vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
-	<link href="<?=ASSETS?>vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
-  <!-- Style JS -->
-
-  <script src="<?=ASSETS?>js/plugins-init/chartist-init.js"></script>
-  <script src="<?=ASSETS?>js/custom.min.js"></script>
-  <script src="<?=ASSETS?>js/dlabnav-init.js"></script>
-  <script src="<?=ASSETS?>vendor/chartist/js/chartist.min.js"></script>
+  <link href="<?=ASSETS?>vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="<?=ASSETS?>vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
   <script src="<?=ASSETS?>vendor/apexchart/apexchart.js"></script>
-  <script src="<?=ASSETS?>vendor/jquery/jquery.min.js"></script>
-  <script src="<?=ASSETS?>vendor/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
-  <script src="<?=ASSETS?>vendor/chart.js/Chart.bundle.min.js"></script>
-  <script src="<?=ASSETS?>vendor/peity/jquery.peity.min.js"></script>
-  <script src="<?=ASSETS?>vendor/global/global.min.js"></script>
-  <script src="<?=ASSETS?>vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+  <link href="<?=ASSETS?>vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+  <script src="<?=ASSETS?>vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+
 </head>

@@ -63,7 +63,7 @@ define('IS_ADMIN', 'is_admin');
 
 
 // API SETTINGS
-define('API_VERSION', 'V1');
+define('API_VERSION', '');
 define('API_PATH', 'API/'.API_VERSION.'/');
 
 

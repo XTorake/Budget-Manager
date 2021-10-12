@@ -14,46 +14,32 @@
   <div class="col-xl-12 col-lg-12 col-xxl-12 col-sm-12">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title">Recent Payments Queue</h4>
+        <h4 class="card-title">Payments Queue</h4>
+        <button type="button" id="add_movement_btn" class="btn btn-success mb-2 float-right" ><i class="fas fa-plus"></i> Add</button>
+
       </div>
       <div class="card-body">
-        <div class="table-responsive recentOrderTable">
-          <table class="table verticle-middle table-responsive-md">
+
+          <table class="table table-bordered table-responsive-sm" id="lista_movimientos" style="width:100%">
             <thead>
               <tr>
-                <th scope="col">Ward No.</th>
-                <th scope="col">Patient</th>
-                <th scope="col">Dr Name</th>
+                <th scope="col">#</th>
+                <th scope="col">Account</th>
+                <th scope="col">Made By</th>
                 <th scope="col">Date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Bills</th>
-                <th scope="col"></th>
+                <th scope="col">Ammount</th>
+                <th scope="col">Type</th>
+                <th scope="col">Actions</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>12</td>
-                <td>Mr. Bobby</td>
-                <td>Dr. Jackson</td>
-                <td>01 August 2020</td>
-                <td><span class="badge badge-rounded badge-primary">Checkin</span></td>
-                <td>$120</td>
-                <td>
-                  <div class="dropdown custom-dropdown mb-0">
-                    <div class="btn sharp btn-primary tp-btn" data-bs-toggle="dropdown">
-                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"/><circle fill="#000000" cx="12" cy="5" r="2"/><circle fill="#000000" cx="12" cy="12" r="2"/><circle fill="#000000" cx="12" cy="19" r="2"/></g></svg>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-end">
-                      <a class="dropdown-item" href="javascript:void();;">Details</a>
-                      <a class="dropdown-item text-danger" href="javascript:void();;">Cancel</a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
           </table>
-        </div>
+
       </div>
     </div>
   </div>
+</div>
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="movement_modal">
+
 </div>
