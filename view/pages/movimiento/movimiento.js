@@ -208,6 +208,9 @@ $('body').on('click', '#add_movement_btn', function(e) {
   </div>
   `;
   $('#movement_modal').html(content);
+  // $('#fecha_add').bootstrapMaterialDatePicker({
+  //     format: 'dddd DD MMMM YYYY - HH:mm'
+  // });
   $('#movement_modal').modal('show');
 });
 $('body').on('click', '.edit_movement_btn', function(e) {
@@ -293,6 +296,11 @@ $('body').on('click', '.edit_movement_btn', function(e) {
     </div>
     `;
   $('#movement_modal').html(content);
+
+  // $('#fecha_edit').bootstrapMaterialDatePicker({
+  //     format: 'dddd DD MMMM YYYY - HH:mm'
+  // });
+
   $('#movement_modal').modal('show');
 
 });
