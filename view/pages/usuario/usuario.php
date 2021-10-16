@@ -10,6 +10,8 @@
   </ol>
 </div> -->
 
+
+
 <div class="d-flex align-items-center flex-wrap search-job bg-white px-0 mb-4 row">
   <div class="col-xl-2 col-xxl-3 search-dropdown d-flex align-items-center">
     <select class="form-control border-0 default-select style-1 h-auto">
@@ -42,7 +44,7 @@
 <div class="d-flex align-items-center justify-content-between my-5 flex-wrap">
   <div>
     <div class="d-flex align-items-center">
-      <button type="button" id="add_movement_btn" class="btn btn-primary mb-2 float-right" ><i class="fas fa-plus"></i>  Add</button>
+      <button type="button" id="add_usuario_btn" class="btn btn-primary mb-2 float-right" ><i class="fas fa-plus"></i>  Add</button>
 
     <!--   <span class="me-4">
 

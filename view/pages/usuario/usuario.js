@@ -11,11 +11,25 @@ let total_count_cuentas = 0;
 //Execute the page script
 Init();
 
+$('#users_modal').modal('show')
 
 
 //script entrypoint
 function Init(){
   loadUsuarios()
+
+
+  $('#add_usuario_btn').on('click', function(){
+
+    let content = `
+
+    `
+
+    __showModal('Hola Mundo', 'PROBANDO SIN FOOTER', 'ESTE ES EL FOOTER')
+
+  })
+
+
 }
 
 

@@ -19,6 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Budget Manager - El Lugar</title>
+  <link href="<?=ASSETS?>vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
   <?php $vh->__component('styling'); ?>
 </head>
 <body class="vh-100">
@@ -26,7 +27,7 @@
     <div class="container h-100">
         <div class="row justify-content-center h-100 align-items-center">
             <div class="col-md-6">
-                <div class="authincation-content">
+                <div class="authincation-content" style="position:fixed; left:50%; top:50%; transform:translate(-50%, -50%);">
                     <div class="row no-gutters">
                         <div class="col-xl-12">
                             <div class="auth-form">
@@ -36,22 +37,20 @@
                               <h3 class="text-center mb-4">Budget Manager</h4>
                               <div class="mb-3">
                                 <label class="mb-1"><strong>Email</strong></label>
-                                  <input type="email" class="form-control" id="email" placeholder="hello@example.com">
+                                <input type="email" class="form-control" id="email" placeholder="hello@example.com">
                               </div>
                               <div class="mb-3">
                                 <label class="mb-1"><strong>Password</strong></label>
-                                  <input type="password" class="form-control" id="password" placeholder="****************">
+                                <input type="password" class="form-control" id="password" placeholder="****************">
                               </div>
                               <div class="row d-flex justify-content-between mt-4 mb-2">
-
                                 <div class="mb-3">
                                   <a href="#">Forgot Password?</a>
                                 </div>
                               </div>
                               <div class="text-center">
-                                <button class="btn btn-outline-secondary btn-block"> Sign Me In </button>
+                                <button class="btn btn-outline-secondary btn-block" id="sign-in"> Sign Me In </button>
                               </div>
-
                             </div>
                         </div>
                     </div>
@@ -65,39 +64,58 @@
   <br><br>
   <a href="controller/doLogin.php?admin">Login Admin</a> -->
   <!-- href="controller/doLogin.php" -->
-
+  <?php $vh->__component('scripts') ?>
+  <script src="<?=ASSETS?>vendor/sweetalert2/dist/sweetalert2.min.js"></script>
   <script type="text/javascript">
 
-
+    $('#sign-in').on('click', function(){
+      validateLogin()
+    })
 
 
     function validateLogin(){
-      const data = getLoginData()
-      if (data) {
+      const DATA = getLoginData()
 
+
+      if (!DATA) {
+        swal('Ooops!', 'Please fill all of the inputs!', 'error')
+        return
       }
+
+
+
+      // REQUEST THE SERVER FOR VALIDATION
+      fetch('<?=API_PATH?>usuario/attemptLogin.php', {
+        method:'POST',
+        body:JSON.stringify( DATA )
+      }).then( r => r.json() )
+      .then( r => {
+
+        if(r.code){
+          swal('Success!', 'Login succesful, redirecting!', 'success')
+          setTimeout(() => { location.reload() }, 500);
+          return;
+        }
+        swal('Ooops!', r.message, 'error')
+
+      })
+
+
+
     }
 
 
 
     //
     function getLoginData(){
-
       let data = {
-        email:document.getElementById('email'),
-        password:document.getElementById('password')
+        correo:$('#email').val(),
+        password:$('#password').val()
       };
-
-      if(data.email == ''){
+      if(data.correo == '' || data.password == ''){
         return false
       }
-
-      if(data.password == ''){
-        return false
-      }
-
       return data;
-
     }
 
 

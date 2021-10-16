@@ -18,14 +18,15 @@ class Usuario{
   	public $no_of_records_per_page = 30;
 
     //specific properties
-	  
-public $_id;
-public $nombre;
-public $correo;
-public $login_password;
-public $login_salt;
-public $admin;
-public $activo;
+    public $_id;
+    public $nombre;
+    public $correo;
+    public $login_password;
+    public $login_salt;
+    public $admin;
+    public $activo;
+
+
 
     // End Usuario Properties
     // *************************************************************************
@@ -41,6 +42,101 @@ public $activo;
     }
     // End Usuario Constructor
     // *************************************************************************
+
+
+
+
+
+
+
+    // *************************************************************************
+    // Start Usuario salt and password settings.
+    function gensalt(){
+      $salt = $this->randval().$this->uniqidReal();
+      $salt = str_shuffle($salt);
+      return hash('sha1', $salt);
+  	}
+
+
+    function HashPassword($p, $s){
+      $hp = $this->recurrent_hash($p);
+      $hs = $this->recurrent_hash($s);
+      return $this->recurrent_hash($hs.$hp);
+    }
+
+
+    //returns random value between min - max and fills the empty chars with 0
+    function randval($min = 0, $max = 99999999,  $length = 8, $fill = "0"){
+      $number = rand($min, $max);
+      $number = str_pad($number, $length, $fill, STR_PAD_LEFT);
+      return $number;
+    }
+
+
+    //iterates n times hashing every time the result of the previous hash of the string.
+    private function recurrent_hash($str, $n = 100, $hash = 'sha512'){
+      for ($i=0; $i < $n; $i++) { $str = hash($hash, $str); }
+      return $str;
+    }
+
+
+    //generates a random string of characters
+    function uniqidReal($lenght = 8) {
+      // uniqid gives 13 chars, but you could adjust it to your needs.
+      if (function_exists("random_bytes")) {
+          $bytes = random_bytes(ceil($lenght / 2));
+      } elseif (function_exists("openssl_random_pseudo_bytes")) {
+          $bytes = openssl_random_pseudo_bytes(ceil($lenght / 2));
+      } else {
+          throw new Exception("no cryptographically secure random function available");
+      }
+      return substr(bin2hex($bytes), 0, $lenght);
+    }
+    // Start Usuario salt and password settings.
+    // *************************************************************************
+
+
+
+
+
+    function attemptLogin(){
+      // query to read single record
+      $query = "SELECT  t.* FROM ". $this->table_name ." t  WHERE t.login_salt = ? AND t.login_password = ? LIMIT 0,1";
+
+      // prepare query statement
+      $stmt = $this->conn->prepare($query);
+
+      // bind parameters
+      $stmt->bindParam(1, $this->login_salt);
+      $stmt->bindParam(2, $this->login_password);
+
+      // execute query
+      $stmt->execute();
+
+      // get retrieved row
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      $num = $stmt->rowCount();
+
+      if($num>0){
+        // set values to object properties
+        $this->_id = $row['_id'];
+        $this->nombre = $row['nombre'];
+        $this->correo = $row['correo'];
+        $this->login_password = $row['login_password'];
+        $this->login_salt = $row['login_salt'];
+        $this->admin = $row['admin'];
+        $this->activo = $row['activo'];
+      }else{
+        $this->_id = null;
+      }
+
+      return $row;
+    }
+
+
+
+
+
 
 
 
@@ -145,7 +241,7 @@ public $activo;
   		$stmt = $this->conn->prepare($query);
 
   		// bind searchKey
-  		
+
 $stmt->bindParam(1, $searchKey);
 $stmt->bindParam(2, $searchKey);
 $stmt->bindParam(3, $searchKey);
@@ -214,7 +310,7 @@ $stmt->bindParam(7, $searchKey);
 
     // *************************************************************************
   	// Start LGVD usuario
-	  
+
     // End LGVD usuario
     // *************************************************************************
 
@@ -244,16 +340,61 @@ $stmt->bindParam(7, $searchKey);
 
     		if($num>0){
           // set values to object properties
-    		  
-$this->_id = $row['_id'];
-$this->nombre = $row['nombre'];
-$this->correo = $row['correo'];
-$this->login_password = $row['login_password'];
-$this->login_salt = $row['login_salt'];
-$this->admin = $row['admin'];
-$this->activo = $row['activo'];
+          $this->_id = $row['_id'];
+          $this->nombre = $row['nombre'];
+          $this->correo = $row['correo'];
+          $this->login_password = $row['login_password'];
+          $this->login_salt = $row['login_salt'];
+          $this->admin = $row['admin'];
+          $this->activo = $row['activo'];
     		}else{
     		  $this->_id = null;
+    		}
+
+        return $row;
+  	}
+    // End ReadOne the usuario
+    // *************************************************************************
+
+
+
+
+    // *************************************************************************
+  	// Start Read One the usuario
+  	function readOneEmail(){
+
+    		// query to read single record
+    		$query = "SELECT  t.* FROM ". $this->table_name ." t  WHERE t.correo = ? LIMIT 0,1";
+
+    		// prepare query statement
+    		$stmt = $this->conn->prepare($query);
+
+    		// bind id
+    		$stmt->bindParam(1, $this->correo);
+
+    		// execute query
+    		$stmt->execute();
+
+    		// get retrieved row
+    		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+    		$num = $stmt->rowCount();
+
+
+    		if($num>0){
+
+          // set values to object properties
+          $this->_id = $row['_id'];
+          $this->nombre = $row['nombre'];
+          $this->correo = $row['correo'];
+          $this->login_password = $row['login_password'];
+          $this->login_salt = $row['login_salt'];
+          $this->admin = $row['admin'];
+          $this->activo = $row['activo'];
+
+    		}else{
+
+    		  $this->_id = null;
+
     		}
 
         return $row;
@@ -276,7 +417,7 @@ $this->activo = $row['activo'];
   		$stmt = $this->conn->prepare($query);
 
   		// sanitize
-  		
+
 $this->nombre=htmlspecialchars(strip_tags($this->nombre));
 $this->correo=htmlspecialchars(strip_tags($this->correo));
 $this->login_password=htmlspecialchars(strip_tags($this->login_password));
@@ -285,7 +426,7 @@ $this->admin=htmlspecialchars(strip_tags($this->admin));
 $this->activo=htmlspecialchars(strip_tags($this->activo));
 
   		// bind values
-  		
+
 $stmt->bindParam(":nombre", $this->nombre);
 $stmt->bindParam(":correo", $this->correo);
 $stmt->bindParam(":login_password", $this->login_password);
@@ -319,7 +460,7 @@ $stmt->bindParam(":activo", $this->activo);
   		$stmt = $this->conn->prepare($query);
 
   		// sanitize
-  		
+
 $this->nombre=htmlspecialchars(strip_tags($this->nombre));
 $this->correo=htmlspecialchars(strip_tags($this->correo));
 $this->login_password=htmlspecialchars(strip_tags($this->login_password));
@@ -329,7 +470,7 @@ $this->activo=htmlspecialchars(strip_tags($this->activo));
 $this->_id=htmlspecialchars(strip_tags($this->_id));
 
   		// bind new values
-  		
+
 $stmt->bindParam(":nombre", $this->nombre);
 $stmt->bindParam(":correo", $this->correo);
 $stmt->bindParam(":login_password", $this->login_password);
@@ -384,11 +525,10 @@ $stmt->bindParam(":_id", $this->_id);
 
     // *************************************************************************
   	// Start extra functions for usuario
-    
+
     // End extra functions for usuario
     // *************************************************************************
 
 
 }
 ?>
-
