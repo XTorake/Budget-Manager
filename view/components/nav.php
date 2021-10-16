@@ -94,8 +94,8 @@
 
                   <div class="d-flex align-items-center sidebar-info">
                     <div>
-                      <span class="font-w400 d-block">David Kubes</span>
-                      <small class="text-end font-w400">Superadmin</small>
+                      <span class="font-w400 d-block"> <?= $_SESSION[SESSION_VAR]['nombre'] ?> </span>
+                      <small class="text-end font-w400"> <?= ( $_SESSION[SESSION_VAR]['admin'] == 1 ) ? 'Admin' : 'User' ; ?> </small>
                     </div>
                     <!-- <i class="fas fa-chevron-down"></i> -->
                   </div>
