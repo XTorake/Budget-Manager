@@ -45,11 +45,11 @@
                               <div class="row d-flex justify-content-between mt-4 mb-2">
 
                                 <div class="mb-3">
-                                  <a href="page-forgot-password.html">Forgot Password?</a>
+                                  <a href="#">Forgot Password?</a>
                                 </div>
                               </div>
                               <div class="text-center">
-                                <a class="btn btn-outline-secondary btn-block" href="controller/doLogin.php">Sign Me In</a>
+                                <button class="btn btn-outline-secondary btn-block"> Sign Me In </button>
                               </div>
 
                             </div>
@@ -64,9 +64,19 @@
   <a href="controller/doLogin.php">Login Client</a>
   <br><br>
   <a href="controller/doLogin.php?admin">Login Admin</a> -->
-
+  <!-- href="controller/doLogin.php" -->
 
   <script type="text/javascript">
+
+
+
+
+    function validateLogin(){
+      const data = getLoginData()
+      if (data) {
+
+      }
+    }
 
 
 

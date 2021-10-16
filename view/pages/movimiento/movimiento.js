@@ -325,12 +325,8 @@ Number.prototype.format = function(n, x, s, c) {
 function cargarMovimientos() {
   fetch(`<?=API_PATH?>movimiento/read.php`)
     .then(response => response.json())
-    .then(r => g__movimientos = r.data.records)
-    .then(() => console.log(g__movimientos));
-  setTimeout(function() {
-    cagarTablaMovimientos();
-
-  }, 1000);
+    .then(r =>{ g__movimientos = r.data.records })
+    .then(() => cagarTablaMovimientos());
 }
 
 function cargarCuentas() {
