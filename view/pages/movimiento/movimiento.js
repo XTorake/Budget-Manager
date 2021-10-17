@@ -355,7 +355,6 @@ $('body').on('click', '.view_movement_btn', function(e) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-            <button type="button" id="view_confirm_btn" class="btn btn-success">Save</button>
             </div>
         </div>
     </div>
