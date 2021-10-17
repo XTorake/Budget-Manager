@@ -24,6 +24,9 @@
   <link href="<?=ASSETS?>vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
   <link href="<?=ASSETS?>vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
   <script src="<?=ASSETS?>vendor/apexchart/apexchart.js"></script>
+  <script src="<?=ASSETS?>vendor/moment/moment.min.js"></script>
+  <link href="<?=ASSETS?>vendor/jquery-asColorPicker/css/asColorPicker.min.css" rel="stylesheet">
+
   <link href="<?=ASSETS?>vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
   <script src="<?=ASSETS?>vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 

@@ -15,3 +15,6 @@
 <script src="<?=ASSETS?>vendor/peity/jquery.peity.min.js"></script>
 <script src="<?=ASSETS?>vendor/chartist/js/chartist.min.js"></script>
 <script src="<?=ASSETS?>vendor/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+<script src="<?=ASSETS?>vendor/jquery-asColor/jquery-asColor.min.js"></script>
+<script src="<?=ASSETS?>vendor/jquery-asGradient/jquery-asGradient.min.js"></script>
+<script src="<?=ASSETS?>vendor/jquery-asColorPicker/js/jquery-asColorPicker.min.js"></script>

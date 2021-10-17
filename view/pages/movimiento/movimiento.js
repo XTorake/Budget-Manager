@@ -129,6 +129,71 @@ function crearMovimiento() {
     sweetAlert("Oops...", "Incomplete Information !!", "error")
   }
 }
+
+function editarMovimiento() {
+  let data = {
+    id: $("#id_add").val(),
+    id_cuenta: $("#cuenta_select_add").val(),
+    id_usuario: '1',
+    fecha: $("#fecha_add").val(),
+    monto: $("#monto_add").val(),
+    descripcion: $("#descripcion_add").val(),
+    es_gasto: $("#es_gasto_select_add").val(),
+    visto: '2',
+    activo: '1'
+  };
+  if (validaciones(data)) {
+    fetch('<?=API_PATH?>movimiento/update.php', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(res => res.json())
+      .then(() => {
+        swal("update successfull!!", "The record has been updated!!", "success")
+        cargarMovimientos();
+        $('#movement_modal').modal('hide');
+
+      });
+  } else {
+    sweetAlert("Oops...", "Incomplete Information !!", "error")
+  }
+}
+
+function eliminarMovimiento(id) {
+
+  let data = {
+    _id: id
+  };
+  swal({
+    title: "Are you sure to delete ?",
+    text: "You will not be able to recover information!!",
+    type: "warning",
+    showCancelButton: !0,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, delete it !!"
+  }).then((result) => {
+    if (result.value == true) {
+      fetch('<?=API_PATH?>movimiento/delete.php', {
+          method: 'post',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then(res => res.json())
+        .then(() => {
+          cargarMovimientos();
+          swal("Deleted !!", "The movement has been deleted !!", "success")
+
+        });
+    }
+  });
+
+
+}
 /********************** Final Funciones del CRUD ***************************/
 
 
@@ -213,6 +278,100 @@ $('body').on('click', '#add_movement_btn', function(e) {
   // });
   $('#movement_modal').modal('show');
 });
+$('body').on('click', '.view_movement_btn', function(e) {
+  var data = g__movimientos.find(x => x._id == $(this).data('id'));
+  let content = `
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Movement #${data._id}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="mb-3 col-md-6">
+                  <label class="form-label">Type of Record</label>
+                  <select disabled class="default-select form-control wide" id="es_gasto_select_add">
+                    <option>Choose...</option>`;
+  if (data.es_gasto == '1') {
+    content += `
+                      <option selected value="1">Expense</option>
+                      <option value="2">Income</option>`;
+  } else {
+    content += `
+                      <option value="1">Expense</option>
+                      <option selected value="2">Income</option>`;
+  }
+  content += `</select>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <label class="form-label">Account</label>
+                  <select disabled class="default-select form-control wide" id="cuenta_select_add">
+                    <option>Choose...</option>`;
+  g__cuentas.forEach((cuenta) => {
+    if (data.id_cuenta == cuenta._id) {
+      content += `<option selected value="${cuenta._id}">${cuenta.cuenta}</option>`;
+    } else {
+      content += `<option value="${cuenta._id}">${cuenta.cuenta}</option>`;
+    }
+  });
+  content += `</select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="mb-3 col-md-12">
+                  <label class="form-label">Ammount</label>
+                  <div class="col-auto">
+                    <div class="input-group mb-2 input-success">
+                      <div class="input-group-text">$</div>
+                      <input id="monto_add" class="form-control" min="1" readonly step="0.01" placeholder="100,000,000" type="number" value="${data.monto}"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="form-label">Description</label>
+                <div class="mb-12">
+                  <textarea id="descripcion_add" readonly class="form-control" rows="4">${data.descripcion}</textarea>
+                </div>
+              </div>
+            </br>
+            <div class="row">
+              <div class="mb-3 col-md-4">
+                <label class="form-label">Date</label>
+                <input id="fecha_edit" type="text" readonly class="form-control" placeholder="Saturday 24 June 2017 - 21:44" value="${data.fecha}">
+              </div>
+              <div class="mb-3 col-md-8">
+                <label class="form-label">Voucher</label>
+                <div class="input-group input-info">
+                  <span class="input-group-text">Upload</span>
+                  <div class="form-file">
+                    <input type="file" id="voucher_add" readonly disabled class="form-file-input form-control" value="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="view_confirm_btn" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </div>
+    `;
+  $('#movement_modal').html(content);
+
+  // $('#fecha_edit').bootstrapMaterialDatePicker({
+  //     format: 'dddd DD MMMM YYYY - HH:mm'
+  // });
+
+  $('#movement_modal').modal('show');
+
+});
+$('body').on('click', '.delete_movement_btn', function(e) {
+  eliminarMovimiento($(this).data('id'));
+});
 $('body').on('click', '.edit_movement_btn', function(e) {
   var data = g__movimientos.find(x => x._id == $(this).data('id'));
   let content = `
@@ -224,34 +383,36 @@ $('body').on('click', '.edit_movement_btn', function(e) {
                 </button>
             </div>
             <div class="modal-body">
+            <input id="id_add" type="hidden" value="${data._id}"/>
+
               <div class="row">
                 <div class="mb-3 col-md-6">
                   <label class="form-label">Type of Record</label>
                   <select class="default-select form-control wide" id="es_gasto_select_add">
                     <option>Choose...</option>`;
-                    if (data.es_gasto == '1') {
-                      content +=`
+  if (data.es_gasto == '1') {
+    content += `
                       <option selected value="1">Expense</option>
                       <option value="2">Income</option>`;
-                    }else {
-                      content +=`
+  } else {
+    content += `
                       <option value="1">Expense</option>
                       <option selected value="2">Income</option>`;
-                    }
-       content +=`</select>
+  }
+  content += `</select>
                 </div>
                 <div class="mb-3 col-md-6">
                   <label class="form-label">Account</label>
                   <select class="default-select form-control wide" id="cuenta_select_add">
                     <option>Choose...</option>`;
-                    g__cuentas.forEach((cuenta) => {
-                      if (data.id_cuenta == cuenta._id){
-                        content += `<option selected value="${cuenta._id}">${cuenta.cuenta}</option>`;
-                      }else {
-                        content += `<option value="${cuenta._id}">${cuenta.cuenta}</option>`;
-                      }
-                    });
-      content +=`</select>
+  g__cuentas.forEach((cuenta) => {
+    if (data.id_cuenta == cuenta._id) {
+      content += `<option selected value="${cuenta._id}">${cuenta.cuenta}</option>`;
+    } else {
+      content += `<option value="${cuenta._id}">${cuenta.cuenta}</option>`;
+    }
+  });
+  content += `</select>
                 </div>
               </div>
               <div class="row">
@@ -275,7 +436,7 @@ $('body').on('click', '.edit_movement_btn', function(e) {
             <div class="row">
               <div class="mb-3 col-md-4">
                 <label class="form-label">Date</label>
-                <input id="fecha_edit" type="datetime-local" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" value="${data.fecha}">
+                <input id="fecha_add" type="datetime-local" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" value="${data.fecha}">
               </div>
               <div class="mb-3 col-md-8">
                 <label class="form-label">Voucher</label>
@@ -290,23 +451,22 @@ $('body').on('click', '.edit_movement_btn', function(e) {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-            <button type="button" id="add_confirm_btn" class="btn btn-success">Save</button>
+            <button type="button" id="edit_confirm_btn" class="btn btn-success">Save</button>
             </div>
         </div>
     </div>
     `;
   $('#movement_modal').html(content);
-
-  // $('#fecha_edit').bootstrapMaterialDatePicker({
-  //     format: 'dddd DD MMMM YYYY - HH:mm'
-  // });
-
   $('#movement_modal').modal('show');
 
 });
 $('body').on('click', '#add_confirm_btn', function(e) {
   crearMovimiento();
 });
+$('body').on('click', '#edit_confirm_btn', function(e) {
+  editarMovimiento();
+});
+
 
 function formatNum(n) {
   return parseFloat(n).format(2, 3, '.', ',');
@@ -325,7 +485,9 @@ Number.prototype.format = function(n, x, s, c) {
 function cargarMovimientos() {
   fetch(`<?=API_PATH?>movimiento/read.php`)
     .then(response => response.json())
-    .then(r =>{ g__movimientos = r.data.records })
+    .then(r => {
+      g__movimientos = r.data.records
+    })
     .then(() => cagarTablaMovimientos());
 }
 
@@ -342,9 +504,12 @@ function cargarCuentas() {
 /********************** Validaciones ***************************/
 
 
-function validaciones() {
-  return true;
-
+function validaciones(data) {
+  if (data.id_cuenta != '' && data.id_usuario != '' && data.fecha != '' && data.monto != '' && Number(data.monto) > 0 && data.descripcion != '' && data.es_gasto != '') {
+    return true;
+  } else {
+    return false
+  }
 }
 
 function checkValidNumber(dato) {
