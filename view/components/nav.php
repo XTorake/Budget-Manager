@@ -238,7 +238,7 @@
                  <i class="flaticon-381-id-card"></i>
 
                  <!-- <i class="fas fa-wallet"></i> -->
-                 <span class="nav-text">Accounts</span>
+                 <span class="nav-text">Budgets</span>
                </a>
              </li>
              <li>

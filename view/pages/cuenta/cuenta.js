@@ -165,7 +165,7 @@ function eliminarCuenta(id) {
         }).then(res => res.json())
         .then(() => {
           cargarCuentas();
-          swal("Deleted !!", "The account has been deleted !!", "success")
+          swal("Deleted !!", "The Budget has been deleted !!", "success")
 
         });
     }
@@ -214,7 +214,7 @@ $('body').on('click', '.add_movement_btn', function(e) {
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h4 class="modal-title">Add account</h4>
+              <h4 class="modal-title">Add movement</h4>
               <button type="button" class="btn-close" data-bs-dismiss="modal">
               </button>
           </div>
@@ -228,7 +228,7 @@ $('body').on('click', '.add_movement_btn', function(e) {
                 </select>
               </div>
               <div class="mb-3 col-md-6">
-                <label class="form-label">Account</label>
+                <label class="form-label">Budget</label>
                 <select disabled class="default-select form-control wide" id="cuenta_select_add">
                   <option >Choose...</option>`;
 
@@ -297,13 +297,13 @@ $('body').on('click', '#add_account_btn', function(e) {
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Create Account </h4>
+          <h4 class="modal-title">Create Budget </h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="mb-3 col-md-6">
-              <label class="form-label">Name</label>
+              <label class="form-label">Budget Name</label>
                 <input id="cuenta_add" class="form-control" type="text" value="" placeholder="Casita..." />
             </div>
             <div class="mb-3 col-md-6">
@@ -357,13 +357,13 @@ $('body').on('click', '.view_account_btn', function(e) {
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Account #${data._id}</h4>
+          <h4 class="modal-title">Budget #${data._id}</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="mb-3 col-md-6">
-              <label class="form-label">Name</label>
+              <label class="form-label">Budget Name</label>
                 <input id="cuenta_add" class="form-control" readonly type="text" value="${data.cuenta}"/>
             </div>
             <div class="mb-3 col-md-6">
@@ -413,7 +413,7 @@ $('body').on('click', '.edit_account_btn', function(e) {
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Edit Account #${data._id}</h4>
+        <h4 class="modal-title">Edit Budget #${data._id}</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <input id="id_add" type="hidden" value="${data._id}"/>
@@ -421,7 +421,7 @@ $('body').on('click', '.edit_account_btn', function(e) {
       <div class="modal-body">
         <div class="row">
           <div class="mb-3 col-md-6">
-            <label class="form-label">Name</label>
+            <label class="form-label">Budget Name</label>
               <input id="cuenta_add" class="form-control" type="text" value="${data.cuenta}" placeholder="Casita..." />
           </div>
           <div class="mb-3 col-md-6">
