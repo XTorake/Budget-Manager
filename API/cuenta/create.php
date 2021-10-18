@@ -1,10 +1,13 @@
 <?php
+session_start();
+
 // required headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST,GET");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+include_once '../../config.php';
 include_once '../config/helper.php';
 
 
@@ -17,6 +20,7 @@ include_once '../config/database.php';
 
 // Include cuenta object & tokenvalidation
 include_once '../objects/cuenta.php';
+include_once '../objects/movimiento.php';
 include_once '../token/validatetoken.php';
 
 
@@ -36,7 +40,7 @@ $response = new Response();
 //Initialize the table class.
 $db = $database->getConnection();
 $cuenta = new Cuenta($db);
-
+$movimiento = new Movimiento($db);
 
 
 // *****************************************************************************
@@ -55,30 +59,30 @@ if(!isEmpty($data->id_categoria)
 
   // *****************************************************************************
   // set cuenta property values
-  
-if(!isEmpty($data->id_categoria)) { 
+
+if(!isEmpty($data->id_categoria)) {
 $cuenta->id_categoria = $data->id_categoria;
-} else { 
+} else {
 $cuenta->id_categoria = '';
 }
-if(!isEmpty($data->cuenta)) { 
+if(!isEmpty($data->cuenta)) {
 $cuenta->cuenta = $data->cuenta;
-} else { 
+} else {
 $cuenta->cuenta = '';
 }
-if(!isEmpty($data->descripcion)) { 
+if(!isEmpty($data->descripcion)) {
 $cuenta->descripcion = $data->descripcion;
-} else { 
+} else {
 $cuenta->descripcion = '';
 }
-if(!isEmpty($data->color)) { 
+if(!isEmpty($data->color)) {
 $cuenta->color = $data->color;
-} else { 
+} else {
 $cuenta->color = '';
 }
-if(!isEmpty($data->activo)) { 
+if(!isEmpty($data->activo)) {
 $cuenta->activo = $data->activo;
-} else { 
+} else {
 $cuenta->activo = '1';
 }
   $inserted = $cuenta->create();
@@ -94,6 +98,19 @@ $cuenta->activo = '1';
     ]);
   }
 
+
+
+
+  // Insert the initial balance
+  $movimiento->id_cuenta = $inserted;
+  $movimiento->id_usuario = $_SESSION[SESSION_VAR]['_id'];
+  $movimiento->fecha = date('c');
+  $movimiento->monto = $data->balance;
+  $movimiento->descripcion = 'Initial Balance';
+  $movimiento->es_gasto = '2';
+  $movimiento->visto = '2';
+  $movimiento->activo = '1';
+  $movimiento->create();
 
 
   // *****************************************************************************
@@ -119,4 +136,3 @@ $cuenta->activo = '1';
 
 
 ?>
-

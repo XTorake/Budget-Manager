@@ -175,7 +175,7 @@
         <div class="row">
           <div class="col-4 pt-3 pb-3 border-end">
             <h3 class="mb-1 text-primary" id="count_expenses"></h3>
-            <span>Total Expenses</span>
+            <span>Total Payments</span>
           </div>
           <div class="col-4 pt-3 pb-3 border-end">
             <h3 class="mb-1 text-primary" id="Overall">$8500</h3>
@@ -183,7 +183,7 @@
           </div>
           <div class="col-4 pt-3 pb-3">
             <h3 class="mb-1 text-primary" id="summary_expenses">$9000</h3>
-            <span>Ammount Expenses</span>
+            <span>Ammount Payments</span>
           </div>
         </div>
       </div>

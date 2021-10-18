@@ -9,11 +9,18 @@
 </head>
 <body>
     <div id="preloader">
-     <div class="lds-ripple">
-       <div></div>
-       <div></div>
-     </div>
-   </div>
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div id="preloader" class="d-none">
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+      <h2 class="text-left">Loading, please wait...</h2>
+    </div>
 
   <div class="modal fade" id="framework-main_modal_container">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

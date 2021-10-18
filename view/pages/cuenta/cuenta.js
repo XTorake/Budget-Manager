@@ -90,6 +90,7 @@ function crearCuenta() {
     cuenta: $("#cuenta_add").val(),
     descripcion: $("#descripcion_add").val(),
     color: $("#color_add").val(),
+    balance:$('#balance_add').val(),
     activo: '1'
   };
   if (validaciones(data)) {
@@ -207,6 +208,57 @@ function crearMovimiento() {
 
 
 
+
+
+
+
+// CREAR NUEVA CATEGORIA
+$('#add_category').on('click', function(){
+
+  let content = `
+  <div class="form-group my-3">
+    <label>Category name:</label>
+    <input id="new_category_name" type="text" class="form-control form-control-sm" placeholder="Add New Category" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  </div>
+  `
+  let actions = `
+    <button class="btn btn-success" onclick="addCategory()"> Add category </button>
+  `
+  __showModal('Add category', content, actions)
+})
+
+
+
+function addCategory(){
+  const CAT = $('#new_category_name').val()
+  if (CAT == '') {
+    swal('Error!', 'Please specify the name of the category!', 'error')
+    return;
+  }
+
+  fetch('<?=API_PATH?>cat_categoria/create.php',{
+    method:'POST',
+    body:JSON.stringify({categoria:CAT, activo:1})
+  })
+  .then( r => r.json() )
+  .then( r => {
+    if(!r.code){
+      swal('Error!', 'A category with this name already exists!', 'error')
+      return;
+    }
+    swal('YAY!', 'Category added!', 'success')
+    init()
+    __hideModal()
+  })
+
+}
+
+
+
+
+
+
+
 /********************** Otras Funciones ***************************/
 
 $('body').on('click', '.add_movement_btn', function(e) {
@@ -317,6 +369,12 @@ $('body').on('click', '#add_account_btn', function(e) {
   content += `</select>
             </div>
           </div>
+          <div class="row mb-3">
+            <label class="form-label">Initial balance:</label>
+            <div class="mb-2">
+                <input id="balance_add" class="form-control" rows="4">
+            </div>
+          </div>
           <div class="row">
             <label class="form-label">Description</label>
             <div class="mb-12">
@@ -351,6 +409,11 @@ $('body').on('click', '#add_account_btn', function(e) {
 
 
 });
+
+
+
+
+
 $('body').on('click', '.view_account_btn', function(e) {
   var data = g__cuentas.find(x => x._id == $(this).data('id'));
   let content = `
@@ -516,7 +579,7 @@ function cargarCategorias() {
 
 
 function validaciones(data) {
-  if (data.id_categoria != '' && data.color != '' && data.cuenta != '' && data.descripcion != '') {
+  if (data.id_categoria != '' && data.color != '' && data.cuenta != '' && data.descripcion != '' && data.balance != '') {
     return true;
   } else {
     return false

@@ -9,8 +9,9 @@
   </ol>
 </div>
 
-<div class="col-md-12 justify-content-end">
+<div class="col-md-12 mb-5 justify-content-end">
   <button type="button" id="add_account_btn" class="btn btn-success mb-2 float-right" ><i class="fas fa-plus"></i>  Add</button>
+  <button type="button" id="add_category" class="btn btn-warning mb-2 float-right" ><i class="fas fa-plus"></i>  Add Category </button>
 </div>
 
 <div class="d-flex d-none align-items-center flex-wrap search-Account bg-white px-0 mb-4">

@@ -111,6 +111,7 @@ function crearMovimiento() {
     activo: '1'
   };
   if (validaciones(data)) {
+
     fetch('<?=API_PATH?>movimiento/create.php', {
         method: 'post',
         headers: {
@@ -119,10 +120,38 @@ function crearMovimiento() {
         },
         body: JSON.stringify(data)
       }).then(res => res.json())
-      .then(() => {
-        swal("Creation successfull!!", "The record has been created!!", "success")
-        cargarMovimientos();
-        $('#movement_modal').modal('hide');
+      .then( res => {
+
+
+
+        // UPLOAD FILE HERE.
+        const FILE = document.querySelector('#voucher_add')
+        let fd = new FormData();
+        fd.append('file', FILE.files[0])
+
+        if (FILE.files.length > 0) {
+
+          $('#preloader').removeClass('d-none')
+
+          fetch(`<?=API_PATH?>files/uploadfile.php?id=${res.data.inserted_id}`,{
+            method:'POST',
+            body:fd
+          }).then( r => r.json() )
+          .then( r => {
+            swal("Creation successfull!!", "The record has been created!!", "success")
+            cargarMovimientos();
+            $('#movement_modal').modal('hide');
+            $('#preloader').addClass('d-none')
+          })
+
+
+        }else{
+          swal("Creation successfull!!", "The record has been created!!", "success")
+          cargarMovimientos();
+          $('#movement_modal').modal('hide');
+        }
+
+
 
       });
   } else {
@@ -151,10 +180,37 @@ function editarMovimiento() {
         },
         body: JSON.stringify(data)
       }).then(res => res.json())
-      .then(() => {
-        swal("update successfull!!", "The record has been updated!!", "success")
-        cargarMovimientos();
-        $('#movement_modal').modal('hide');
+      .then( res => {
+
+
+        // UPLOAD FILE HERE.
+        const FILE = document.querySelector('#voucher_edit')
+        let fd = new FormData();
+        fd.append('file', FILE.files[0])
+
+        if (FILE.files.length > 0) {
+
+          $('#preloader').removeClass('d-none')
+
+          fetch(`<?=API_PATH?>files/uploadfile.php?id=${$("#id_add").val()}`,{
+            method:'POST',
+            body:fd
+          }).then( r => r.json() )
+          .then( r => {
+            swal("update successfull!!", "The record has been updated!!", "success")
+            cargarMovimientos();
+            $('#movement_modal').modal('hide');
+            $('#preloader').addClass('d-none')
+          })
+
+
+        }else{
+          swal("update successfull!!", "The record has been updated!!", "success")
+          cargarMovimientos();
+          $('#movement_modal').modal('hide');
+        }
+
+
 
       });
   } else {
@@ -280,7 +336,7 @@ $('body').on('click', '#add_movement_btn', function(e) {
 
   $('#movement_modal').modal('show');
 });
-$('body').on('click', '.view_movement_btn', function(e) {
+$('body').on('click', '.view_movement_btn', async function(e) {
   var data = g__movimientos.find(x => x._id == $(this).data('id'));
   let content = `
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -292,47 +348,6 @@ $('body').on('click', '.view_movement_btn', function(e) {
             </div>
             <div class="modal-body">
               <div class="row">
-                <div class="mb-3 col-md-6">
-                  <label class="form-label">Type of Record</label>
-                  <select disabled class="default-select form-control wide" id="es_gasto_select_add">
-                    <option>Choose...</option>`;
-  if (data.es_gasto == '1') {
-    content += `
-                      <option selected value="1">Expense</option>
-                      <option value="2">Income</option>`;
-  } else {
-    content += `
-                      <option value="1">Expense</option>
-                      <option selected value="2">Income</option>`;
-  }
-  content += `</select>
-                </div>
-                <div class="mb-3 col-md-6">
-                  <label class="form-label">Account</label>
-                  <select disabled class="default-select form-control wide" id="cuenta_select_add">
-                    <option>Choose...</option>`;
-  g__cuentas.forEach((cuenta) => {
-    if (data.id_cuenta == cuenta._id) {
-      content += `<option selected value="${cuenta._id}">${cuenta.cuenta}</option>`;
-    } else {
-      content += `<option value="${cuenta._id}">${cuenta.cuenta}</option>`;
-    }
-  });
-  content += `</select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="mb-3 col-md-12">
-                  <label class="form-label">Ammount</label>
-                  <div class="col-auto">
-                    <div class="input-group mb-2 input-success">
-                      <div class="input-group-text">$</div>
-                      <input id="monto_add" class="form-control" min="1" readonly step="0.01" placeholder="100,000,000" type="number" value="${data.monto}"/>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
                 <label class="form-label">Description</label>
                 <div class="mb-12">
                   <textarea id="descripcion_add" readonly class="form-control" rows="4">${data.descripcion}</textarea>
@@ -340,17 +355,10 @@ $('body').on('click', '.view_movement_btn', function(e) {
               </div>
             </br>
             <div class="row">
-              <div class="mb-3 col-md-4">
-                <label class="form-label">Date</label>
-                <input id="fecha_edit" type="text" readonly class="form-control" placeholder="Saturday 24 June 2017 - 21:44" value="${data.fecha}">
-              </div>
-              <div class="mb-3 col-md-8">
+              <div class="mb-3 col-md-12">
                 <label class="form-label">Voucher</label>
-                <div class="input-group input-info">
-                  <span class="input-group-text">Upload</span>
-                  <div class="form-file">
-                    <input type="file" id="voucher_add" readonly disabled class="form-file-input form-control" value="">
-                  </div>
+                <div id="voucher_viewer_container">
+                  <p>Loading file...</p>
                 </div>
               </div>
             </div>
@@ -362,14 +370,30 @@ $('body').on('click', '.view_movement_btn', function(e) {
     </div>
     `;
   $('#movement_modal').html(content);
-
   // $('#fecha_edit').bootstrapMaterialDatePicker({
   //     format: 'dddd DD MMMM YYYY - HH:mm'
   // });
-
   $('#movement_modal').modal('show');
-
+  checkFileStatus(data._id)
 });
+
+
+
+function checkFileStatus(id){
+  fetch(`<?=API_PATH?>files/upload/${id}.pdf`)
+  .then( r => {
+    if ( r.status == 404 ) {
+      $('#voucher_viewer_container').html('<h2>There is no file attatched here...</h2>')
+      return;
+    }
+    $('#voucher_viewer_container').html(`<iframe id="view_voucher_embedded" src="<?=API_PATH?>files/upload/${id}.pdf" width="100%" height="500px">`)
+  })
+}
+
+
+
+
+
 $('body').on('click', '.delete_movement_btn', function(e) {
   eliminarMovimiento($(this).data('id'));
 });
@@ -444,7 +468,7 @@ $('body').on('click', '.edit_movement_btn', function(e) {
                 <div class="input-group input-info">
                   <span class="input-group-text">Upload</span>
                   <div class="form-file">
-                    <input type="file" id="voucher_add" class="form-file-input form-control" value="">
+                    <input type="file" id="voucher_edit" class="form-file-input form-control" value="">
                   </div>
                 </div>
               </div>

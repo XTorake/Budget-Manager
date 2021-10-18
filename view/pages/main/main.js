@@ -49,7 +49,7 @@ function accounts() {
               <div class="progress mb-2"  style="background-color:${c.color}40;">
                 <div class="progress-bar progress-animated " style="width: ${percentage+'%'};background-color:${c.color}"></div>
               </div>
-              <small> ${percentage+'%'} percentage left</small>
+              <small> ${percentage+'%'} left</small>
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@ function summary() {
   <li class="list-group-item d-flex px-0 justify-content-between">
     <strong>Category</strong>
     <strong>Initial Value</strong>
-    <strong>Expenses</strong>
+    <strong>Payments</strong>
   </li>`;
 
   let overall = 0;
