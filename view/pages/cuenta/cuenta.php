@@ -3,11 +3,18 @@
   <hr>
 <?php endif; ?>
 <!-- <a href="?<?=ADMIN_VIEW?>"> Go To Admin </a> -->
+<div class="row page-titles">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active"><a href="javascript:void(0)">Budgets</a></li>
+  </ol>
+</div>
 
+<div class="col-md-12 justify-content-end">
+  <button type="button" id="add_account_btn" class="btn btn-success mb-2 float-right" ><i class="fas fa-plus"></i>  Add</button>
+</div>
 
 <div class="d-flex d-none align-items-center flex-wrap search-Account bg-white px-0 mb-4">
   <div class="col-xl-2 col-xxl-3 col-lg-3 col-sm-6 col-12 search-dropdown d-flex align-items-center">
-    <button type="button" id="add_account_btn" class="btn btn-primary btn-block " ><i class="fas fa-plus"></i>  Add</button>
   </div>
   <div class="col-xl-2 col-xxl-3 col-lg-3 col-sm-6 col-12 search-dropdown d-flex align-items-center">
     <select class="form-control border-0 default-select style-1 h-auto">

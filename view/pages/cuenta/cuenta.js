@@ -224,7 +224,7 @@ $('body').on('click', '.add_movement_btn', function(e) {
                 <label class="form-label">Type of Record</label>
                 <select class="default-select form-control wide" id="es_gasto_select_add">
                   <option selected value="1">Expense</option>
-                  <option value="2">Income</option>
+                  <option value="2">Initial Value</option>
                 </select>
               </div>
               <div class="mb-3 col-md-6">
@@ -266,7 +266,7 @@ $('body').on('click', '.add_movement_btn', function(e) {
           <div class="row">
             <div class="mb-3 col-md-4">
               <label class="form-label">Date</label>
-              <input id="fecha_add" type="datetime-local" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" >
+              <input id="fecha_add" readonly type="date" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" >
             </div>
             <div class="mb-3 col-md-8">
               <label class="form-label">Voucher</label>
@@ -287,6 +287,7 @@ $('body').on('click', '.add_movement_btn', function(e) {
   </div>
   `;
   $('#account_modal').html(content);
+  $('#fecha_add').val(new Date().toISOString().slice(0, 10));
   // $('#fecha_add').bootstrapMaterialDatePicker({
   //     format: 'dddd DD MMMM YYYY - HH:mm'
   // });

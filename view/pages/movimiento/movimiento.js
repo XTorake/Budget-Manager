@@ -214,7 +214,7 @@ $('body').on('click', '#add_movement_btn', function(e) {
             <div class="row">
               <div class="mb-3 col-md-6">
                 <label class="form-label">Type of Record</label>
-                <select class="default-select form-control wide" id="es_gasto_select_add">
+                <select class="default-select form-control wide" disabled  id="es_gasto_select_add">
                   <option selected value="1">Expense</option>
                   <option value="2">Income</option>
                 </select>
@@ -252,7 +252,7 @@ $('body').on('click', '#add_movement_btn', function(e) {
           <div class="row">
             <div class="mb-3 col-md-4">
               <label class="form-label">Date</label>
-              <input id="fecha_add" type="datetime-local" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" >
+              <input id="fecha_add" type="date" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" >
             </div>
             <div class="mb-3 col-md-8">
               <label class="form-label">Voucher</label>
@@ -276,6 +276,8 @@ $('body').on('click', '#add_movement_btn', function(e) {
   // $('#fecha_add').bootstrapMaterialDatePicker({
   //     format: 'dddd DD MMMM YYYY - HH:mm'
   // });
+  $('#fecha_add').val(new Date().toISOString().slice(0, 10));
+
   $('#movement_modal').modal('show');
 });
 $('body').on('click', '.view_movement_btn', function(e) {
@@ -387,7 +389,7 @@ $('body').on('click', '.edit_movement_btn', function(e) {
               <div class="row">
                 <div class="mb-3 col-md-6">
                   <label class="form-label">Type of Record</label>
-                  <select class="default-select form-control wide" id="es_gasto_select_add">
+                  <select disabled class="default-select form-control wide" id="es_gasto_select_add">
                     <option>Choose...</option>`;
   if (data.es_gasto == '1') {
     content += `
@@ -435,7 +437,7 @@ $('body').on('click', '.edit_movement_btn', function(e) {
             <div class="row">
               <div class="mb-3 col-md-4">
                 <label class="form-label">Date</label>
-                <input id="fecha_add" type="datetime-local" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" value="${data.fecha}">
+                <input id="fecha_add" type="date" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" value="${data.fecha}">
               </div>
               <div class="mb-3 col-md-8">
                 <label class="form-label">Voucher</label>
@@ -456,6 +458,8 @@ $('body').on('click', '.edit_movement_btn', function(e) {
     </div>
     `;
   $('#movement_modal').html(content);
+  $('#fecha_add').val(new Date().toISOString().slice(0, 10));
+
   $('#movement_modal').modal('show');
 
 });
