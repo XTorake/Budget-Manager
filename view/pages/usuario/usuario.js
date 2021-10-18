@@ -10,63 +10,11 @@ let total_count_cuentas = 0;
 
 //Execute the page script
 Init();
-
-$('#users_modal').modal('show')
-
+$('#add_usuario_btn').on('click', addUser)
 
 //script entrypoint
 function Init(){
   loadUsuarios()
-
-
-  $('#add_usuario_btn').on('click', function(){
-
-    let content = `
-      <div class="form-group mb-4">
-        <label for="">User name:</label>
-        <input type="text" class="form-control" id="add_user-nombre" value="" placeholder="John Doe">
-      </div>
-      <div class="form-group mb-4">
-        <label for="">User Email:</label>
-        <input type="email" class="form-control" id="add_user-correo" value="" placeholder="john.doe@el-lugar.com">
-      </div>
-      <div class="form-group mb-4">
-        <label for="">User access:</label>
-        <select id="add_user-admin" class="form-control">
-          <option value="1">All Access</option>
-          <option value="2">Readonly</option>
-        </select>
-      </div>
-    `
-    let actions = `
-      <button class="btn btn-success" id="add_user-confirm"> Add User </button>
-    `;
-    __showModal('<h3>Add User</h3>', content, actions)
-
-
-    $('#add_user-confirm').on('click', function(){
-
-      const NEW = {
-        nombre:$('#add_user-nombre').val(),
-        correo:$('#add_user-correo').val(),
-        admin:$('#add_user-admin').val(),
-        activo:1,
-        login_salt:'',
-        login_password:''
-      }
-
-      //console.log(NEW)
-      if (NEW.nombre == '' || NEW.correo == '') {
-        swal('Ooops!', 'Please fill in all of the required fields!', 'error')
-        return;
-      }
-
-    })
-
-
-  })
-
-
 }
 
 
@@ -98,7 +46,7 @@ function renderCuentas(){
     <div class="col-xl-4 col-md-6">
       <div class="card">
         <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center flex-wrap">
+          <div style="position:relative; padding-bottom:30px;" class="d-flex justify-content-between align-items-center flex-wrap">
             <div class="d-flex">
               <span class="Studios-info">
                 <svg xmlns="http://www.w3.org/2000/svg" width="97" height="97" viewBox="0 0 97 97">
@@ -113,12 +61,12 @@ function renderCuentas(){
                 </svg>
               </span>
               <div>
-                <h4 class="fs-20 mb-1">${u.nombre}</h4>
-                <span class="mb-3 d-block">${ (u.admin == 1) ? 'Admin' : 'Usuario' }</span>
+                <h4 class="fs-20 mb-3">${u.nombre}</h4>
+                <span class="mb-3 d-block">${ (u.admin == 1) ? 'ADMIN' : 'READONLY' }</span>
                 <span class="d-block"><i class="fas fa-envelope me-2"></i>${u.correo}</span>
               </div>
             </div>
-            <div class="action-buttons d-flex justify-content-end">
+            <div style="position:absolute; right:0px; bottom:-10px; padding-bottom:0;" class="action-buttons d-flex justify-content-end">
               <a href="javascript:void(0);" class="btn btn-secondary light mr-2" onclick="editUser(${Number(u._id)})" data-id="${Number(u._id)}">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
                   <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -154,6 +102,81 @@ function renderCuentas(){
 
 
 
+function addUser(){
+  let content = `
+    <div class="form-group mb-4">
+      <label for="">User name:</label>
+      <input type="text" class="form-control" id="add_user-nombre" value="" placeholder="John Doe">
+    </div>
+    <div class="form-group mb-4">
+      <label for="">User Email:</label>
+      <input type="email" class="form-control" id="add_user-correo" value="" placeholder="john.doe@el-lugar.com">
+    </div>
+    <div class="form-group mb-4">
+      <label for="">User access:</label>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="add_user-login_password" value="E!LugarBudget2021">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" onclick="generatePassword('add_user-login_password')" type="button">Generate Password</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-4">
+      <label for="">User access:</label>
+      <select id="add_user-admin" class="form-control">
+        <option value="1">All Access</option>
+        <option value="2">Readonly</option>
+      </select>
+    </div>
+  `
+  let actions = `
+    <button class="btn btn-success" id="add_user-confirm"> Add User </button>
+  `;
+  __showModal('<h3>Add User</h3>', content, actions)
+
+
+  $('#add_user-confirm').on('click', function(){
+
+    const NEW = {
+      nombre:$('#add_user-nombre').val(),
+      correo:$('#add_user-correo').val(),
+      admin:$('#add_user-admin').val(),
+      activo:1,
+      login_salt:'',
+      login_password:$('#add_user-login_password').val()
+    }
+
+    //console.log(NEW)
+    if (NEW.nombre == '' || NEW.correo == '') {
+      swal('Ooops!', 'Please fill in all of the required fields!', 'error')
+      return;
+    }
+
+    fetch('<?=API_PATH?>usuario/create.php', {
+      method:'POST',
+      body:JSON.stringify(NEW)
+    })
+    .then( r => r.json())
+    .then( r =>{
+      if (!r.code) {
+        swal('Ooops!', r.message , 'error')
+        return;
+      }
+      swal('YAY!', 'Users added succesfully!', 'success');
+      loadUsuarios()
+      __hideModal();
+    })
+
+  })
+}
+
+
+
+function generatePassword(container){
+  $(`#${container}`).val(makeid(10))
+}
+
+
 
 function editUser(id){
   const USER = g__usuarios.find( x => x._id == id )
@@ -181,10 +204,57 @@ function editUser(id){
   `;
 
   __showModal('<h3>Edit User</h3>', content, actions)
+
+
+  //
+  $('#edit_user-confirm').on('click', function(){
+
+    USER.nombre = $('#edit_user-nombre').val();
+    USER.correo = $('#edit_user-correo').val();
+    USER.admin = $('#edit_user-admin').val();
+
+    fetch('<?=API_PATH?>usuario/update.php', {
+      method:"POST",
+      body:JSON.stringify(USER)
+    })
+    .then( r => r.json())
+    .then( r =>{
+
+      if(!r.code){
+        swal('Ooops!', r.message, 'error')
+        return;
+      }
+      swal('YAY!', 'Done, user updated!', 'success')
+      loadUsuarios()
+      __hideModal()
+
+    })
+
+  })
+
 }
 
 
 function deleteUser(id){
   const USER = g__usuarios.find( x => x._id == id )
-  console.log(USER)
+  swal({
+    title: "Are you sure to delete?",
+    text: "You will not be able to recover information!!",
+    type: "warning",
+    showCancelButton: !0,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, delete it !!"
+  }).then((result) => {
+    if (result.value == true) {
+      fetch('<?=API_PATH?>usuario/delete.php', {
+        method: 'post',
+        body: JSON.stringify({_id:id})
+      })
+      .then(res => res.json())
+      .then(() => {
+        loadUsuarios();
+        swal("Deleted !!", "The user has been deleted!", "success")
+      });
+    }
+  });
 }

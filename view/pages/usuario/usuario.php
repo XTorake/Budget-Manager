@@ -13,7 +13,7 @@
 
 
 
-<div class="d-flex align-items-center flex-wrap search-job bg-white px-0 mb-4 row">
+<div class="d-flex d-none align-items-center flex-wrap search-job bg-white px-0 mb-4 row">
   <div class="col-xl-2 col-xxl-3 search-dropdown d-flex align-items-center">
     <select class="form-control border-0 default-select style-1 h-auto">
       <option>Filter by Permissions</option>

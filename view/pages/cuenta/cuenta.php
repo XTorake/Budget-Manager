@@ -3,7 +3,9 @@
   <hr>
 <?php endif; ?>
 <!-- <a href="?<?=ADMIN_VIEW?>"> Go To Admin </a> -->
-<div class="d-flex align-items-center flex-wrap search-Account bg-white px-0 mb-4">
+
+
+<div class="d-flex d-none align-items-center flex-wrap search-Account bg-white px-0 mb-4">
   <div class="col-xl-2 col-xxl-3 col-lg-3 col-sm-6 col-12 search-dropdown d-flex align-items-center">
     <button type="button" id="add_account_btn" class="btn btn-primary btn-block " ><i class="fas fa-plus"></i>  Add</button>
   </div>
@@ -31,7 +33,7 @@
 <div class="row">
   <div class="col-xl-12">
 
-      <div class="d-flex align-items-center mb-4">
+      <div class="d-flex d-none align-items-center mb-4">
         <div class="default-tab Account-tabs">
           <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">

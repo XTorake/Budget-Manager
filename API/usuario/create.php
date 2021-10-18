@@ -50,43 +50,19 @@ $data = json_decode(file_get_contents("php://input"));
 if(!isEmpty($data->nombre)
 &&!isEmpty($data->correo)
 &&!isEmpty($data->login_password)
-&&!isEmpty($data->login_salt)
-&&!isEmpty($data->admin)
-&&!isEmpty($data->activo)){
+&&!isEmpty($data->admin)){
 
   // *****************************************************************************
   // set usuario property values
-  
-if(!isEmpty($data->nombre)) { 
-$usuario->nombre = $data->nombre;
-} else { 
-$usuario->nombre = '';
-}
-if(!isEmpty($data->correo)) { 
-$usuario->correo = $data->correo;
-} else { 
-$usuario->correo = '';
-}
-if(!isEmpty($data->login_password)) { 
-$usuario->login_password = $data->login_password;
-} else { 
-$usuario->login_password = '';
-}
-if(!isEmpty($data->login_salt)) { 
-$usuario->login_salt = $data->login_salt;
-} else { 
-$usuario->login_salt = '';
-}
-if(!isEmpty($data->admin)) { 
-$usuario->admin = $data->admin;
-} else { 
-$usuario->admin = '2';
-}
-if(!isEmpty($data->activo)) { 
-$usuario->activo = $data->activo;
-} else { 
-$usuario->activo = '1';
-}
+
+  $usuario->nombre = $data->nombre;
+  $usuario->correo = $data->correo;
+  $usuario->admin = $data->admin;
+  $usuario->activo = 1;
+
+
+  $usuario->login_salt = $usuario->gensalt();
+  $usuario->login_password = $usuario->HashPassword($data->login_password, $usuario->login_salt);
   $inserted = $usuario->create();
 
 
@@ -125,4 +101,3 @@ $usuario->activo = '1';
 
 
 ?>
-
