@@ -32,3 +32,13 @@ var pieChart3 = function(){
 }
 
 pieChart3();
+
+
+Init();
+
+
+function Init(){
+  fetch('API/dashboard/read.php')
+  .then( r => r.json())
+  .then( r => console.log(r) )
+}

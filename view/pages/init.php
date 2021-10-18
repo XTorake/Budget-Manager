@@ -18,8 +18,9 @@
   <div class="modal fade" id="framework-main_modal_container">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header" id="framework-main_modal_title">
-          <h2>ALO WENAS?</h2>
+        <div class="modal-header">
+          <div id="framework-main_modal_title"></div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="framework-main_modal_content">
 
@@ -44,30 +45,7 @@
   <script type="text/javascript">
     const g__session = <?=$ses?>;
   </script>
-  <script type="text/javascript">
-
-    function __showModal(title, content, footer = ''){
-      const MODAL = $('#framework-main_modal_container')
-      const FOOTER = $('#framework-main_modal_footer')
-
-      $('#framework-main_modal_title').html(title)
-      $('#framework-main_modal_content').html(content)
-      $('#framework-main_modal_footer').html(footer)
-
-      if (footer == '') {
-        FOOTER.addClass('d-none')
-      }else{
-        FOOTER.removeClass('d-none')
-      }
-
-      MODAL.modal('show')
-    }
-
-    function __hideModal(){
-      $('#framework-main_modal_container').modal('hide')
-    }
-
-  </script>
+  <?php $vh->__component('scripts'); ?>
   <?php $vh->__getPageScript(); ?>
   <?php $vh->__component('footer'); ?>
 </div>

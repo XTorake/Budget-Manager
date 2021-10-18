@@ -22,10 +22,47 @@ function Init(){
   $('#add_usuario_btn').on('click', function(){
 
     let content = `
-
+      <div class="form-group mb-4">
+        <label for="">User name:</label>
+        <input type="text" class="form-control" id="add_user-nombre" value="" placeholder="John Doe">
+      </div>
+      <div class="form-group mb-4">
+        <label for="">User Email:</label>
+        <input type="email" class="form-control" id="add_user-correo" value="" placeholder="john.doe@el-lugar.com">
+      </div>
+      <div class="form-group mb-4">
+        <label for="">User access:</label>
+        <select id="add_user-admin" class="form-control">
+          <option value="1">All Access</option>
+          <option value="2">Readonly</option>
+        </select>
+      </div>
     `
+    let actions = `
+      <button class="btn btn-success" id="add_user-confirm"> Add User </button>
+    `;
+    __showModal('<h3>Add User</h3>', content, actions)
 
-    __showModal('Hola Mundo', 'PROBANDO SIN FOOTER', 'ESTE ES EL FOOTER')
+
+    $('#add_user-confirm').on('click', function(){
+
+      const NEW = {
+        nombre:$('#add_user-nombre').val(),
+        correo:$('#add_user-correo').val(),
+        admin:$('#add_user-admin').val(),
+        activo:1,
+        login_salt:'',
+        login_password:''
+      }
+
+      //console.log(NEW)
+      if (NEW.nombre == '' || NEW.correo == '') {
+        swal('Ooops!', 'Please fill in all of the required fields!', 'error')
+        return;
+      }
+
+    })
+
 
   })
 
@@ -82,10 +119,7 @@ function renderCuentas(){
               </div>
             </div>
             <div class="action-buttons d-flex justify-content-end">
-              <a href="javascript:void(0);" class="btn btn-info light mr-2 view_movement_btn" data-id="${Number(u._id)}">
-                <svg xmlns="http://www.w3.org/2000/svg" class="svg-main-icon" width="24px" height="24px" viewBox="0 0 32 32" x="0px" y="0px"><g data-name="Layer 21"><path d="M29,14.47A15,15,0,0,0,3,14.47a3.07,3.07,0,0,0,0,3.06,15,15,0,0,0,26,0A3.07,3.07,0,0,0,29,14.47ZM16,21a5,5,0,1,1,5-5A5,5,0,0,1,16,21Z" fill="#000000" fill-rule="nonzero"></path><circle cx="16" cy="16" r="3" fill="#000000" fill-rule="nonzero"></circle></g></svg>
-              </a>
-              <a href="javascript:void(0);" class="btn btn-secondary light mr-2 edit_movement_btn" data-id="${Number(u._id)}">
+              <a href="javascript:void(0);" class="btn btn-secondary light mr-2" onclick="editUser(${Number(u._id)})" data-id="${Number(u._id)}">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
                   <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <rect x="0" y="0" width="24" height="24"></rect>
@@ -94,7 +128,7 @@ function renderCuentas(){
                   </g>
                 </svg>
               </a>
-              <a href="javascript:void(0);" class="btn btn-danger light delete_movement_btn" data-id="${Number(u._id)}">
+              <a href="javascript:void(0);" class="btn btn-danger light" onclick="deleteUser(${Number(u._id)})" data-id="${Number(u._id)}">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
                   <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <rect x="0" y="0" width="24" height="24"></rect>
@@ -115,4 +149,42 @@ function renderCuentas(){
 
   $('#contenedor_usuarios').html(content);
 
+}
+
+
+
+
+
+function editUser(id){
+  const USER = g__usuarios.find( x => x._id == id )
+  console.log(USER)
+
+  let content = `
+    <div class="form-group mb-4">
+      <label for="">User name:</label>
+      <input type="text" class="form-control" id="edit_user-nombre" value="${USER.nombre}" placeholder="John Doe">
+    </div>
+    <div class="form-group mb-4">
+      <label for="">User Email:</label>
+      <input type="email" class="form-control" id="edit_user-correo" value="${USER.correo}" placeholder="john.doe@el-lugar.com">
+    </div>
+    <div class="form-group mb-4">
+      <label for="">User access:</label>
+      <select id="edit_user-admin" class="form-control">
+        <option value="1" ${(USER.admin == 1)? "selected" : '' }>All Access</option>
+        <option value="2" ${(USER.admin == 2)? "selected" : '' }>Readonly</option>
+      </select>
+    </div>
+  `
+  let actions = `
+    <button class="btn btn-success" id="edit_user-confirm"> Save Changes </button>
+  `;
+
+  __showModal('<h3>Edit User</h3>', content, actions)
+}
+
+
+function deleteUser(id){
+  const USER = g__usuarios.find( x => x._id == id )
+  console.log(USER)
 }

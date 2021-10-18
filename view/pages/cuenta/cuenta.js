@@ -327,7 +327,7 @@ $('body').on('click', '#add_account_btn', function(e) {
             <div class="col-xl-4 col-lg-6 mb-3"">
               <div class="example">
                 <p class="mb-1">Color</p>
-                <input type="text" id="color_add" class="as_colorpicker form-control"  value="#000">
+                <input type="color" id="color_add" class="form-control"  value="#000">
               </div>
             </div>
           </div>
@@ -347,7 +347,6 @@ $('body').on('click', '#add_account_btn', function(e) {
   // });
 
   $('#account_modal').modal('show');
-  $(".as_colorpicker").asColorPicker();
 
 
 });
@@ -446,10 +445,10 @@ $('body').on('click', '.edit_account_btn', function(e) {
         </div>
         </br>
         <div class="row">
-          <div class="col-xl-4 col-lg-6 mb-3"">
+          <div class="col-xl-12 col-lg-12 mb-12">
             <div class="example">
               <p class="mb-1">Color</p>
-              <input type="text" id="color_add" class="as_colorpicker form-control"  value="${data.color}">
+              <input type="color" id="color_add" class="form-control"  value="${data.color}">
             </div>
           </div>
         </div>
@@ -464,7 +463,7 @@ $('body').on('click', '.edit_account_btn', function(e) {
   $('#account_modal').html(content);
 
   $('#account_modal').modal('show');
-  $(".as_colorpicker").asColorPicker();
+  //$("#color_add").asColorPicker();
 
 });
 $('body').on('click', '#add_confirm_btn', function(e) {
