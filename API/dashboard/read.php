@@ -22,7 +22,7 @@ $response = new Response();
 
 
 //read the categories
-$query = 'SELECT * FROM view_categorias';
+$query = 'SELECT * FROM view_categoria';
 $stmt = $db->prepare($query);
 $stmt->execute();
 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);

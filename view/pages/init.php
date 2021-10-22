@@ -8,12 +8,14 @@
   <?php $vh->__component('head'); ?>
 </head>
 <body>
+  
     <div id="preloader">
       <div class="lds-ripple">
         <div></div>
         <div></div>
       </div>
     </div>
+
     <div id="preloader" class="d-none">
       <div class="lds-ripple">
         <div></div>

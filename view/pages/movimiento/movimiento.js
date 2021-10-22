@@ -34,7 +34,10 @@ function cagarTablaMovimientos() {
         data: 'nombre'
       },
       {
-        data: 'fecha'
+        data: 'fecha',
+        render:function(data){
+          return data.split(' ')[0]
+        }
       },
       {
         data: 'monto',
@@ -47,9 +50,9 @@ function cagarTablaMovimientos() {
         data: 'es_gasto',
         render: function(data, type, row) {
           if (data == '1') {
-            return `<span readonly class="badge badge-danger badge-lg light">Expense</span>`;
+            return `<span readonly class="badge badge-danger badge-lg light">Payment</span>`;
           } else {
-            return `<span readonly class="badge badge-success badge-lg light">Income</span>`;
+            return `<span readonly class="badge badge-success badge-lg light">Initial Balance</span>`;
           }
         }
       },
@@ -271,7 +274,7 @@ $('body').on('click', '#add_movement_btn', function(e) {
               <div class="mb-3 col-md-6">
                 <label class="form-label">Type of Record</label>
                 <select class="default-select form-control wide" disabled  id="es_gasto_select_add">
-                  <option selected value="1">Expense</option>
+                  <option selected value="1">Payment</option>
                   <option value="2">Income</option>
                 </select>
               </div>

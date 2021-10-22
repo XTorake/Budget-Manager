@@ -16,10 +16,10 @@ class Database{
 
 
       // Live ENVIROMENT
-      if (false) {
-        $this->db_name = '';
-        $this->username = '';
-        $this->password = '';
+      if (true) {
+        $this->db_name = 'u242079499_budgeting';
+        $this->username = 'u242079499_budgeting';
+        $this->password = 'vG|//9?vYcK9';
       }
 
 
@@ -44,4 +44,3 @@ class Database{
     }
 }
 ?>
-

@@ -195,9 +195,37 @@ function crearMovimiento() {
         },
         body: JSON.stringify(data)
       }).then(res => res.json())
-      .then(() => {
-        swal("Creation successfull!!", "The record has been created!!", "success")
-        $('#account_modal').modal('hide');
+      .then( res => {
+
+        // UPLOAD FILE HERE.
+        const FILE = document.querySelector('#voucher_add')
+        let fd = new FormData();
+        fd.append('file', FILE.files[0])
+
+        if (FILE.files.length > 0) {
+
+          $('#preloader').removeClass('d-none')
+
+          fetch(`<?=API_PATH?>files/uploadfile.php?id=${$("#cuenta_select_add").val()}`,{
+            method:'POST',
+            body:fd
+          }).then( r => r.json() )
+          .then( r => {
+
+            swal("update successfull!!", "The record has been added!!", "success")
+            cargarMovimientos();
+            $('#account_modal').modal('hide');
+            $('#preloader').addClass('d-none');
+
+          })
+
+
+        }else{
+          swal("update successfull!!", "The record has been added!!", "success")
+          cargarMovimientos();
+          $('#account_modal').modal('hide');
+
+        }
 
       });
   } else {
@@ -275,8 +303,8 @@ $('body').on('click', '.add_movement_btn', function(e) {
               <div class="mb-3 col-md-6">
                 <label class="form-label">Type of Record</label>
                 <select class="default-select form-control wide" id="es_gasto_select_add">
-                  <option selected value="1">Expense</option>
-                  <option value="2">Initial Value</option>
+                  <option selected value="1">Payment</option>
+                  <option value="2">Initial Balance</option>
                 </select>
               </div>
               <div class="mb-3 col-md-6">
