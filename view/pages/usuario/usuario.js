@@ -156,7 +156,7 @@ function addUser(){
     })
     .then( r => r.json())
     .then( r =>{
-      if (!r.status) {
+      if (!r.code) {
         swal('Ooops!', r.message , 'error')
         return;
       }
