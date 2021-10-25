@@ -1,10 +1,11 @@
 /********************** Definicion de variables globales ****************************/
-
 let g__cuentas = [];
 let g__categorias = [];
-
-
 /********************** Final Definicion de variables globales ****************************/
+
+
+
+
 
 
 /********************** Funcion de inicio ****************************/
@@ -13,8 +14,13 @@ function init() {
   cargarCuentas();
 }
 
+
 init();
 /********************** Final Funcion de inicio ****************************/
+
+
+
+
 
 /********************** Datatable ****************************/
 function renderCuentas() {
@@ -94,20 +100,7 @@ function crearCuenta() {
     activo: '1'
   };
   if (validaciones(data)) {
-    fetch('<?=API_PATH?>cuenta/create.php', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      }).then(res => res.json())
-      .then(() => {
-        swal("Creation successfull!!", "The record has been created!!", "success")
-        cargarCuentas();
-        $('#account_modal').modal('hide');
-
-      });
+    crearCuentaFetch(data)
   } else {
     sweetAlert("Oops...", "Incomplete Information !!", "error")
   }
@@ -206,23 +199,20 @@ function crearMovimiento() {
 
           $('#preloader').removeClass('d-none')
 
+
           fetch(`<?=API_PATH?>files/uploadfile.php?id=${$("#cuenta_select_add").val()}`,{
             method:'POST',
             body:fd
           }).then( r => r.json() )
           .then( r => {
-
             swal("update successfull!!", "The record has been added!!", "success")
-            cargarMovimientos();
             $('#account_modal').modal('hide');
             $('#preloader').addClass('d-none');
-
           })
 
 
         }else{
           swal("update successfull!!", "The record has been added!!", "success")
-          cargarMovimientos();
           $('#account_modal').modal('hide');
 
         }
@@ -353,7 +343,7 @@ $('body').on('click', '.add_movement_btn', function(e) {
               <div class="input-group input-info">
                 <span class="input-group-text">Upload</span>
                 <div class="form-file">
-                  <input type="file" id="voucher_add" class="form-file-input form-control" value="">
+                  <input type="file" id="voucher_add" class="form-file-input form-control" value="" accept="application/pdf">
                 </div>
               </div>
             </div>
@@ -580,15 +570,15 @@ Number.prototype.format = function(n, x, s, c) {
 /********************** Final Funciones ***************************/
 
 
+
+
+
 /********************** Carga de catalogos ***************************/
-
-
-
 function cargarCuentas() {
-  fetch(`<?=API_PATH?>cuenta/read.php`)
+  fetch(`<?=API_PATH?>dashboard/read.php`)
     .then(response => response.json())
     .then(r => {
-      g__cuentas = r.data.records
+      g__cuentas = r.data.cuentas
     })
     .then(() => renderCuentas());
 }
@@ -600,29 +590,37 @@ function cargarCategorias() {
       g__categorias = r.data.records
     });
 }
+
+function crearCuentaFetch(data){
+  fetch('<?=API_PATH?>cuenta/create.php', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => res.json())
+    .then(() => {
+      swal("Creation successfull!!", "The record has been created!!", "success")
+      cargarCuentas();
+      $('#account_modal').modal('hide');
+    });
+}
 /********************** Final Carga de catalogos ***************************/
 
 
+
+
+
+
 /********************** Validaciones ***************************/
-
-
 function validaciones(data) {
-  if (data.id_categoria != '' && data.color != '' && data.cuenta != '' && data.descripcion != '' && data.balance != '') {
-    return true;
-  } else {
-    return false
-  }
+  return (data.id_categoria != '' && data.color != '' && data.cuenta != '' && data.descripcion != '' && data.balance != '')
 }
 function validacionM(data) {
-  if (data.id_cuenta != '' && data.id_usuario != '' && data.fecha != '' && data.monto != '' && Number(data.monto) > 0 && data.descripcion != '' && data.es_gasto != '') {
-    return true;
-  } else {
-    return false
-  }
+  return (data.id_cuenta != '' && data.id_usuario != '' && data.fecha != '' && data.monto != '' && Number(data.monto) > 0 && data.descripcion != '' && data.es_gasto != '')
 }
-
 function checkValidNumber(dato) {
   return (!!dato.match(/^[0-9]+$/));
 }
-
 /********************** Final  Validaciones ***************************/
