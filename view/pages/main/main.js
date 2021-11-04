@@ -33,6 +33,7 @@ function accounts() {
 
     percentage = ((c.balance_cuenta- c.pagos_cuenta) / (c.balance_cuenta)) * 100;
     percentage = percentage.toFixed(0);
+    percentage = 100 - percentage
     available = c.balance_cuenta - c.pagos_cuenta ;
     content += `
     <div class="col-xl-3 col-xxl-6 col-lg-6 col-sm-6 col-md-6">
@@ -49,7 +50,7 @@ function accounts() {
               <div class="progress mb-2"  style="background-color:${c.color}40;">
                 <div class="progress-bar progress-animated " style="width: ${percentage+'%'};background-color:${c.color}"></div>
               </div>
-              <small> ${percentage+'%'} left</small>
+              <small> ${percentage+'%'} used</small>
             </div>
           </div>
         </div>

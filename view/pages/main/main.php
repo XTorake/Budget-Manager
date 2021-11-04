@@ -75,7 +75,7 @@
   </div>
 </div>
 <hr/>
-<h3 class="card-title">Available per account</h3>
+<h3 class="card-title">Available per budget</h3>
 <br/>
 
 <div class="row" id="accounts"></div>

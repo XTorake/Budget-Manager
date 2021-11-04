@@ -54,37 +54,37 @@ if(!isEmpty($data->id_usuario)
 &&!isEmpty($data->modificar)
 &&!isEmpty($data->activo)){
 
-  // *****************************************************************************
-  // set accesos property values
-  
-if(!isEmpty($data->id_usuario)) { 
+// *****************************************************************************
+// set accesos property values
+
+if(!isEmpty($data->id_usuario)) {
 $accesos->id_usuario = $data->id_usuario;
-} else { 
+} else {
 $accesos->id_usuario = '';
 }
-if(!isEmpty($data->id_cuenta)) { 
+if(!isEmpty($data->id_cuenta)) {
 $accesos->id_cuenta = $data->id_cuenta;
-} else { 
+} else {
 $accesos->id_cuenta = '';
 }
-if(!isEmpty($data->lectura)) { 
+if(!isEmpty($data->lectura)) {
 $accesos->lectura = $data->lectura;
-} else { 
+} else {
 $accesos->lectura = '1';
 }
-if(!isEmpty($data->escritura)) { 
+if(!isEmpty($data->escritura)) {
 $accesos->escritura = $data->escritura;
-} else { 
+} else {
 $accesos->escritura = '2';
 }
-if(!isEmpty($data->modificar)) { 
+if(!isEmpty($data->modificar)) {
 $accesos->modificar = $data->modificar;
-} else { 
+} else {
 $accesos->modificar = '2';
 }
-if(!isEmpty($data->activo)) { 
+if(!isEmpty($data->activo)) {
 $accesos->activo = $data->activo;
-} else { 
+} else {
 $accesos->activo = '1';
 }
   $inserted = $accesos->create();
@@ -112,10 +112,10 @@ $accesos->activo = '1';
 
 
 }else{
-    $response->error('Unable to create accesos', [
-      "data" => $data,
-      "info" => 'Data is incomplete or not correct.'
-    ]);
+  $response->error('Unable to create accesos', [
+    "data" => $data,
+    "info" => 'Data is incomplete or not correct.'
+  ]);
 }
 
 
@@ -125,4 +125,3 @@ $accesos->activo = '1';
 
 
 ?>
-

@@ -17,15 +17,15 @@ class Accesos{
   	public $pageNo = 1;
   	public $no_of_records_per_page = 30;
 
+
     //specific properties
-	  
-public $_id;
-public $id_usuario;
-public $id_cuenta;
-public $lectura;
-public $escritura;
-public $modificar;
-public $activo;
+    public $_id;
+    public $id_usuario;
+    public $id_cuenta;
+    public $lectura;
+    public $escritura;
+    public $modificar;
+    public $activo;
 
     // End Accesos Properties
     // *************************************************************************
@@ -145,7 +145,7 @@ public $activo;
   		$stmt = $this->conn->prepare($query);
 
   		// bind searchKey
-  		
+
 $stmt->bindParam(1, $searchKey);
 $stmt->bindParam(2, $searchKey);
 $stmt->bindParam(3, $searchKey);
@@ -216,7 +216,7 @@ $stmt->bindParam(9, $searchKey);
 
     // *************************************************************************
   	// Start LGVD accesos
-	  
+
     // End LGVD accesos
     // *************************************************************************
 
@@ -246,7 +246,7 @@ $stmt->bindParam(9, $searchKey);
 
     		if($num>0){
           // set values to object properties
-    		  
+
 $this->_id = $row['_id'];
 $this->id_usuario = $row['id_usuario'];
 $this->nombre = $row['nombre'];
@@ -280,7 +280,7 @@ $this->activo = $row['activo'];
   		$stmt = $this->conn->prepare($query);
 
   		// sanitize
-  		
+
 $this->id_usuario=htmlspecialchars(strip_tags($this->id_usuario));
 $this->id_cuenta=htmlspecialchars(strip_tags($this->id_cuenta));
 $this->lectura=htmlspecialchars(strip_tags($this->lectura));
@@ -289,7 +289,7 @@ $this->modificar=htmlspecialchars(strip_tags($this->modificar));
 $this->activo=htmlspecialchars(strip_tags($this->activo));
 
   		// bind values
-  		
+
 $stmt->bindParam(":id_usuario", $this->id_usuario);
 $stmt->bindParam(":id_cuenta", $this->id_cuenta);
 $stmt->bindParam(":lectura", $this->lectura);
@@ -323,7 +323,7 @@ $stmt->bindParam(":activo", $this->activo);
   		$stmt = $this->conn->prepare($query);
 
   		// sanitize
-  		
+
 $this->id_usuario=htmlspecialchars(strip_tags($this->id_usuario));
 $this->id_cuenta=htmlspecialchars(strip_tags($this->id_cuenta));
 $this->lectura=htmlspecialchars(strip_tags($this->lectura));
@@ -333,7 +333,7 @@ $this->activo=htmlspecialchars(strip_tags($this->activo));
 $this->_id=htmlspecialchars(strip_tags($this->_id));
 
   		// bind new values
-  		
+
 $stmt->bindParam(":id_usuario", $this->id_usuario);
 $stmt->bindParam(":id_cuenta", $this->id_cuenta);
 $stmt->bindParam(":lectura", $this->lectura);
@@ -388,12 +388,12 @@ $stmt->bindParam(":_id", $this->_id);
 
     // *************************************************************************
   	// Start extra functions for accesos
-    
+
 function readByid_usuario(){
 
 if (isset($_GET["pageNo"]))
 {
-$this->pageNo =$_GET["pageNo"]; } 
+$this->pageNo =$_GET["pageNo"]; }
 $offset = ($this->pageNo - 1) * $this->no_of_records_per_page;
 $query = "SELECT  h.nombre, u.cuenta, t.* FROM ". $this->table_name ." t  join usuario h on t.id_usuario = h._id  join cuenta u on t.id_cuenta = u._id  WHERE t.id_usuario = ? LIMIT ".$offset." , ". $this->no_of_records_per_page."";
 
@@ -408,7 +408,7 @@ function readByid_cuenta(){
 
 if (isset($_GET["pageNo"]))
 {
-$this->pageNo =$_GET["pageNo"]; } 
+$this->pageNo =$_GET["pageNo"]; }
 $offset = ($this->pageNo - 1) * $this->no_of_records_per_page;
 $query = "SELECT  h.nombre, u.cuenta, t.* FROM ". $this->table_name ." t  join usuario h on t.id_usuario = h._id  join cuenta u on t.id_cuenta = u._id  WHERE t.id_cuenta = ? LIMIT ".$offset." , ". $this->no_of_records_per_page."";
 
@@ -425,4 +425,3 @@ return $stmt;
 
 }
 ?>
-

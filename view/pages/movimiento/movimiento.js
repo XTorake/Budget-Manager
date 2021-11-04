@@ -34,7 +34,10 @@ function cagarTablaMovimientos() {
         data: 'nombre'
       },
       {
-        data: 'fecha'
+        data: 'fecha',
+        render:function(data){
+          return data.split(' ')[0]
+        }
       },
       {
         data: 'monto',
@@ -47,9 +50,9 @@ function cagarTablaMovimientos() {
         data: 'es_gasto',
         render: function(data, type, row) {
           if (data == '1') {
-            return `<span readonly class="badge badge-danger badge-lg light">Expense</span>`;
+            return `<span readonly class="badge badge-danger badge-lg light">Payment</span>`;
           } else {
-            return `<span readonly class="badge badge-success badge-lg light">Income</span>`;
+            return `<span readonly class="badge badge-success badge-lg light">Initial Balance</span>`;
           }
         }
       },
@@ -94,8 +97,12 @@ function cagarTablaMovimientos() {
     }]
   });
 }
+
+
+
 /********************** FInal  Datatable ****************************/
-$('body').off();
+
+
 
 /********************** Funciones del CRUD ***************************/
 function crearMovimiento() {
@@ -110,53 +117,55 @@ function crearMovimiento() {
     visto: '2',
     activo: '1'
   };
-  if (validaciones(data)) {
-
-    fetch('<?=API_PATH?>movimiento/create.php', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      }).then(res => res.json())
-      .then( res => {
 
 
-
-        // UPLOAD FILE HERE.
-        const FILE = document.querySelector('#voucher_add')
-        let fd = new FormData();
-        fd.append('file', FILE.files[0])
-
-        if (FILE.files.length > 0) {
-
-          $('#preloader').removeClass('d-none')
-
-          fetch(`<?=API_PATH?>files/uploadfile.php?id=${res.data.inserted_id}`,{
-            method:'POST',
-            body:fd
-          }).then( r => r.json() )
-          .then( r => {
-            swal("Creation successfull!!", "The record has been created!!", "success")
-            cargarMovimientos();
-            $('#movement_modal').modal('hide');
-            $('#preloader').addClass('d-none')
-          })
+  if (!validaciones(data)) {
+    sweetAlert("Oops...", "Incomplete Information !!", "error")
+    return;
+  }
 
 
-        }else{
+  fetch('<?=API_PATH?>movimiento/create.php', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => res.json())
+    .then( res => {
+
+
+
+      // UPLOAD FILE HERE.
+      const FILE = document.querySelector('#voucher_add')
+      let fd = new FormData();
+      fd.append('file', FILE.files[0])
+
+      if (FILE.files.length > 0) {
+
+        $('#preloader').removeClass('d-none')
+
+        fetch(`<?=API_PATH?>files/uploadfile.php?id=${res.data.inserted_id}`,{
+          method:'POST',
+          body:fd
+        }).then( r => r.json() )
+        .then( r => {
           swal("Creation successfull!!", "The record has been created!!", "success")
           cargarMovimientos();
           $('#movement_modal').modal('hide');
-        }
+          $('#preloader').addClass('d-none')
+        })
 
 
+      }else{
+        swal("Creation successfull!!", "The record has been created!!", "success")
+        cargarMovimientos();
+        $('#movement_modal').modal('hide');
+      }
 
-      });
-  } else {
-    sweetAlert("Oops...", "Incomplete Information !!", "error")
-  }
+  });
+
 }
 
 function editarMovimiento() {
@@ -231,7 +240,7 @@ function eliminarMovimiento(id) {
     confirmButtonColor: "#DD6B55",
     confirmButtonText: "Yes, delete it !!"
   }).then((result) => {
-    if (result.value == true) {
+    if (result.value === true) {
       fetch('<?=API_PATH?>movimiento/delete.php', {
           method: 'post',
           headers: {
@@ -259,7 +268,7 @@ function eliminarMovimiento(id) {
 $('body').on('click', '#add_movement_btn', function(e) {
 
   let content = `
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
           <div class="modal-header">
               <h4 class="modal-title">Add movement</h4>
@@ -271,62 +280,63 @@ $('body').on('click', '#add_movement_btn', function(e) {
               <div class="mb-3 col-md-6">
                 <label class="form-label">Type of Record</label>
                 <select class="default-select form-control wide" disabled  id="es_gasto_select_add">
-                  <option selected value="1">Expense</option>
+                  <option selected value="1">Payment</option>
                   <option value="2">Income</option>
                 </select>
               </div>
               <div class="mb-3 col-md-6">
                 <label class="form-label">Account</label>
                 <select class="default-select form-control wide" id="cuenta_select_add">
-                  <option selected>Choose...</option>`;
+                  <option selected>Choose...</option>
+  `;
 
   g__cuentas.forEach((cuenta) => {
     content += `<option value="${cuenta._id}">${cuenta.cuenta}</option>`
   });
 
-  content += `</select>
+  content += `  </select>
+                </div>
               </div>
-            </div>
+              <div class="row">
+                <div class="mb-3 col-md-12">
+                  <label class="form-label">Ammount</label>
+                  <div class="col-auto">
+                    <div class="input-group mb-2 input-success">
+                      <div class="input-group-text">$</div>
+                      <input id="monto_add" class="form-control" min="1" step="0.01" placeholder="100,000,000" type="number" value=""/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <label class="form-label">Description</label>
+                <div class="mb-12">
+                  <textarea id="descripcion_add" class="form-control" rows="4" value=""></textarea>
+                </div>
+              </div>
+            </br>
             <div class="row">
-              <div class="mb-3 col-md-12">
-                <label class="form-label">Ammount</label>
-                <div class="col-auto">
-                  <div class="input-group mb-2 input-success">
-                    <div class="input-group-text">$</div>
-                    <input id="monto_add" class="form-control" min="1" step="0.01" placeholder="100,000,000" type="number" value=""/>
+              <div class="mb-3 col-md-4">
+                <label class="form-label">Date</label>
+                <input id="fecha_add" type="date" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" >
+              </div>
+              <div class="mb-3 col-md-8">
+                <label class="form-label">Voucher</label>
+                <div class="input-group input-info">
+                  <span class="input-group-text">Upload</span>
+                  <div class="form-file">
+                    <input type="file" id="voucher_add" class="form-file-input form-control" value="" accept="application/pdf">
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <label class="form-label">Description</label>
-              <div class="mb-12">
-                <textarea id="descripcion_add" class="form-control" rows="4" value=""></textarea>
-              </div>
-            </div>
-          </br>
-          <div class="row">
-            <div class="mb-3 col-md-4">
-              <label class="form-label">Date</label>
-              <input id="fecha_add" type="date" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" >
-            </div>
-            <div class="mb-3 col-md-8">
-              <label class="form-label">Voucher</label>
-              <div class="input-group input-info">
-                <span class="input-group-text">Upload</span>
-                <div class="form-file">
-                  <input type="file" id="voucher_add" class="form-file-input form-control" value="">
-                </div>
-              </div>
-            </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="add_confirm_btn" class="btn btn-success">Save</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-          <button type="button" id="add_confirm_btn" class="btn btn-success">Save</button>
-          </div>
-      </div>
-  </div>
+    </div>
   `;
   $('#movement_modal').html(content);
   // $('#fecha_add').bootstrapMaterialDatePicker({
@@ -336,6 +346,7 @@ $('body').on('click', '#add_movement_btn', function(e) {
 
   $('#movement_modal').modal('show');
 });
+
 $('body').on('click', '.view_movement_btn', async function(e) {
   var data = g__movimientos.find(x => x._id == $(this).data('id'));
   let content = `
@@ -397,6 +408,8 @@ function checkFileStatus(id){
 $('body').on('click', '.delete_movement_btn', function(e) {
   eliminarMovimiento($(this).data('id'));
 });
+
+
 $('body').on('click', '.edit_movement_btn', function(e) {
   var data = g__movimientos.find(x => x._id == $(this).data('id'));
   let content = `
@@ -468,7 +481,7 @@ $('body').on('click', '.edit_movement_btn', function(e) {
                 <div class="input-group input-info">
                   <span class="input-group-text">Upload</span>
                   <div class="form-file">
-                    <input type="file" id="voucher_edit" class="form-file-input form-control" value="">
+                    <input type="file" id="voucher_edit" class="form-file-input form-control" value="" accept="application/pdf">
                   </div>
                 </div>
               </div>
@@ -481,29 +494,23 @@ $('body').on('click', '.edit_movement_btn', function(e) {
         </div>
     </div>
     `;
+
   $('#movement_modal').html(content);
   $('#fecha_add').val(new Date().toISOString().slice(0, 10));
-
   $('#movement_modal').modal('show');
 
 });
+
+
 $('body').on('click', '#add_confirm_btn', function(e) {
   crearMovimiento();
 });
+
+
 $('body').on('click', '#edit_confirm_btn', function(e) {
   editarMovimiento();
 });
 
-
-function formatNum(n) {
-  return parseFloat(n).format(2, 3, '.', ',');
-};
-
-Number.prototype.format = function(n, x, s, c) {
-  var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
-    num = this.toFixed(Math.max(0, ~~n));
-  return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
-};
 /********************** Final Funciones ***************************/
 
 

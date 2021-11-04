@@ -23,6 +23,25 @@
   <?php $vh->__component('styling'); ?>
 </head>
 <body class="vh-100">
+
+
+  <div class="modal fade" id="framework-main_modal_container">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div id="framework-main_modal_title"></div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="framework-main_modal_content">
+
+        </div>
+        <div class="modal-footer" id="framework-main_modal_footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="authincation h-100" >
     <div class="container h-100">
         <div class="row justify-content-center h-100 align-items-center">
@@ -45,7 +64,7 @@
                               </div>
                               <div class="row d-flex justify-content-between mt-4 mb-2">
                                 <div class="mb-3">
-                                  <a href="#">Forgot Password?</a>
+                                  <button class="btn btn-link-success" onclick="forgotPassword()">Forgot Password?</button>
                                 </div>
                               </div>
                               <div class="text-center">
@@ -118,6 +137,22 @@
       return data;
     }
 
+
+
+    function forgotPassword(){
+
+      let content = `
+        <label for="">Registered Email:</label>
+        <input type="email" id="recover_password" placeholder="johndoe@example.com" class="form-control" />
+      `
+      let actions = `
+        <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+        <button class="btn btn-success"> Send Recovery Link </button>
+      `
+
+      __showModal('Recover Password', content, actions);
+
+    }
 
 
 

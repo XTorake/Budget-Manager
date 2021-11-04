@@ -29,7 +29,7 @@ function loadUsuarios(){
     total_count_cuentas = r.data.total_count
   })
   .then( () => {
-    renderCuentas()
+    renderUsuarios()
   })
 
 
@@ -38,7 +38,7 @@ function loadUsuarios(){
 
 
 
-function renderCuentas(){
+function renderUsuarios(){
 
   let content = '';
   g__usuarios.forEach((u, i) => {
@@ -92,8 +92,6 @@ function renderCuentas(){
     </div>
     `;
   });
-
-
 
   $('#contenedor_usuarios').html(content);
 
