@@ -109,7 +109,7 @@ function crearMovimiento() {
   console.log($("#fecha_add").val());
   let data = {
     id_cuenta: $("#cuenta_select_add").val(),
-    id_usuario: g__session._id,
+    id_usuario: '1',
     fecha: $("#fecha_add").val(),
     monto: $("#monto_add").val(),
     descripcion: $("#descripcion_add").val(),
@@ -126,10 +126,16 @@ function crearMovimiento() {
 
 
   fetch('<?=API_PATH?>movimiento/create.php', {
-      method: 'POST',
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(data)
     }).then(res => res.json())
     .then( res => {
+
+
 
       // UPLOAD FILE HERE.
       const FILE = document.querySelector('#voucher_add')
@@ -166,7 +172,7 @@ function editarMovimiento() {
   let data = {
     id: $("#id_add").val(),
     id_cuenta: $("#cuenta_select_add").val(),
-    id_usuario: g__session._id,
+    id_usuario: '1',
     fecha: $("#fecha_add").val(),
     monto: $("#monto_add").val(),
     descripcion: $("#descripcion_add").val(),
@@ -511,7 +517,7 @@ $('body').on('click', '#edit_confirm_btn', function(e) {
 /********************** Carga de catalogos ***************************/
 
 function cargarMovimientos() {
-  fetch(`<?=API_PATH?>movimiento/read.php?pagesize=99999`)
+  fetch(`<?=API_PATH?>movimiento/read.php`)
     .then(response => response.json())
     .then(r => {
       g__movimientos = r.data.records
@@ -520,7 +526,7 @@ function cargarMovimientos() {
 }
 
 function cargarCuentas() {
-  fetch(`<?=API_PATH?>cuenta/read.php?pagesize=99999`)
+  fetch(`<?=API_PATH?>cuenta/read.php`)
     .then(response => response.json())
     .then(r => {
       g__cuentas = r.data.records

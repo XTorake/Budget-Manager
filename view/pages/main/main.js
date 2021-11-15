@@ -67,7 +67,7 @@ function summary() {
     <strong>Initial Value</strong>
     <strong>Payments</strong>
   </li>`;
-  
+
   let overall = 0;
   let expenses = 0;
   let count_expenses = g__movimientos.total_count;
@@ -76,7 +76,7 @@ function summary() {
     expenses = expenses + Number(c.pagos_categoria);
     content += `
     <li class="list-group-item d-flex px-0 justify-content-between">
-      <a class="btn btn-sm btn-dark" href="?p=cuenta&category=${c.id_categoria}&cat_name=${c.categoria}"> ${c.categoria} </a>
+      <strong>${c.categoria}</strong>
       <span class="mb-0">${'$'+formatNum(c.balance_categoria)}</span>
       <span class="mb-0">${'$'+formatNum(c.pagos_categoria)}</span>
     </li>

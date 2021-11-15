@@ -1,10 +1,5 @@
 <script type="text/javascript">
 
-  // ENFORCE HTTPS PROTOCOL
-  if (location.protocol !== 'https:') {
-    //location.replace(`https:${location.href.substring(location.protocol.length)}`);
-  }
-
   function _id(e){
     return document.getElementById(e);
   }
@@ -53,18 +48,5 @@
       num = this.toFixed(Math.max(0, ~~n));
     return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
   };
-
-  function retrieveGET(parameterName) {
-    var result = null,
-        tmp = [];
-    location.search
-        .substr(1)
-        .split("&")
-        .forEach(function (item) {
-          tmp = item.split("=");
-          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-        });
-    return result;
-  }
 
 </script>

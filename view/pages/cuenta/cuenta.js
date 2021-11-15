@@ -92,15 +92,7 @@ function cagarTablaMovimientos() {
 }
 function renderCuentas() {
   let content = '';
-
-  let filter = retrieveGET('category');
-  let cuentas = g__cuentas;
-
-  if(filter){
-    cuentas = g__cuentas.filter( x => x.id_categoria == filter )
-  }
-
-  cuentas.forEach((c, i) => {
+  g__cuentas.forEach((c, i) => {
     content += `
       <div class="col-xl-3 col-xxl-4  col-md-4 col-sm-6">
         <div class="card">
@@ -119,20 +111,12 @@ function renderCuentas() {
                 </svg>
               </span>
               <h4 class="fs-20 mb-0">${c.cuenta}</h4>
-              <a href="?p=cuenta&category=${c.id_categoria}&cat_name=${c.categoria}">
-                <span class="text-primary mb-3 d-block">${c.categoria}</span>
-              </a>
+              <span class="text-primary mb-3 d-block">${c.categoria}</span>
             </div>
-            <p> 
-              <strong>
-                <span class="text-dark">Initial Balance: $${formatNum(c.balance_cuenta)} </span>
-                <span class="text-dark"></br> Total Payments: $${formatNum(c.pagos_cuenta)} </span>
-                <span class="text-primary"></br> Outstanding: $${formatNum(Number(c.balance_cuenta) - Number(c.pagos_cuenta))} </span> 
-              </strong>
-            </p>
-            <div class="mt-2">
+            <div class="">
               <span class="d-block mb-1"><i class="fas fa-info me-2"></i>${c.descripcion}</span>
             </div>
+
           </div>
 
         </div>
@@ -227,7 +211,7 @@ function eliminarCuenta(id) {
 function crearMovimiento() {
   let data = {
     id_cuenta: $("#cuenta_select_add").val(),
-    id_usuario: g__session._id,
+    id_usuario: '1',
     fecha: $("#fecha_add").val(),
     monto: $("#monto_add").val(),
     descripcion: $("#descripcion_add").val(),
@@ -245,7 +229,6 @@ function crearMovimiento() {
         body: JSON.stringify(data)
       }).then(res => res.json())
       .then( res => {
-
 
         // UPLOAD FILE HERE.
         const FILE = document.querySelector('#voucher_add')
@@ -395,7 +378,7 @@ $('body').on('click', '.add_movement_btn', function(e) {
               <label class="form-label">Date</label>
               <input id="fecha_add" readonly type="date" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" >
             </div>
-            <div class="mb-3 col-md-8 d-none">
+            <div class="mb-3 col-md-8">
               <label class="form-label">Voucher</label>
               <div class="input-group input-info">
                 <span class="input-group-text">Upload</span>
@@ -436,7 +419,8 @@ $('body').on('click', '#add_account_btn', function(e) {
             </div>
             <div class="mb-3 col-md-6">
               <label class="form-label">Category</label>
-              <select class="default-select form-control wide" id="categoria_add">`;
+              <select class="default-select form-control wide" id="categoria_add">
+                <option selected>Choose...</option>`;
   g__categorias.forEach((c) => {
     content += `<option value="${c._id}">${c.categoria}</option>`
   });
@@ -631,7 +615,7 @@ Number.prototype.format = function(n, x, s, c) {
 
 /********************** Carga de catalogos ***************************/
 function cargarCuentas() {
-  fetch(`<?=API_PATH?>dashboard/read.php?pagesize=9999`)
+  fetch(`<?=API_PATH?>dashboard/read.php`)
     .then(response => response.json())
     .then(r => {
       g__cuentas = r.data.cuentas
@@ -640,7 +624,7 @@ function cargarCuentas() {
 }
 
 function cargarCategorias() {
-  fetch(`<?=API_PATH?>cat_categoria/read.php?pagesize=9999`)
+  fetch(`<?=API_PATH?>cat_categoria/read.php`)
     .then(response => response.json())
     .then(r => {
       g__categorias = r.data.records
