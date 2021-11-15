@@ -13,11 +13,9 @@
   <div class="col-xl-12 col-lg-12 col-xxl-12 col-sm-12">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title">Payments Queue</h4>
-        <div class="col-md-12 mb-5 justify-content-end">
+        <h4 class="card-title">Budget List</h4>
           <button type="button" id="add_account_btn" class="btn btn-success mb-2 float-right" ><i class="fas fa-plus"></i>  Add</button>
           <button type="button" id="add_category" class="btn btn-warning mb-2 float-right" ><i class="fas fa-plus"></i>  Add Category </button>
-        </div>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -27,10 +25,8 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Account</th>
-                <th scope="col">Made By</th>
-                <th scope="col">Date</th>
-                <th scope="col">Ammount</th>
-                <th scope="col">Type</th>
+                <th scope="col">Category</th>
+                <th scope="col">Description</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>

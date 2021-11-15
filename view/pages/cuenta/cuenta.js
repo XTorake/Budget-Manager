@@ -1,5 +1,6 @@
 /********************** Definicion de variables globales ****************************/
 let g__cuentas = [];
+let g__cuentas_datatable = null;
 let g__categorias = [];
 /********************** Final Definicion de variables globales ****************************/
 
@@ -23,11 +24,11 @@ init();
 
 
 /********************** Datatable ****************************/
-function cagarTablaMovimientos() {
-  if (g__movimientos_datatable) {
-    g__movimientos_datatable.destroy();
+function cagarTablaCuentas() {
+  if (g__cuentas_datatable) {
+    g__cuentas_datatable.destroy();
   }
-  g__movimientos_datatable = $('#contenedor_cuentas').DataTable({
+  g__cuentas_datatable = $('#contenedor_cuentas').DataTable({
     data: g__cuentas,
     destroy: true,
     responsive: true,
@@ -47,13 +48,14 @@ function cagarTablaMovimientos() {
       {
         data: 'funciones',
         render: function(data, type, row) {
+          console.log(row);
           if (row.activo == "1") {
             return `
             <div class="action-buttons d-flex justify-content-end">
               <a href="javascript:void(0);" class="btn btn-info light mr-2 view_account_btn" data-id="${Number(row._id)}">
                 <svg xmlns="http://www.w3.org/2000/svg" class="svg-main-icon" width="24px" height="24px" viewBox="0 0 32 32" x="0px" y="0px"><g data-name="Layer 21"><path d="M29,14.47A15,15,0,0,0,3,14.47a3.07,3.07,0,0,0,0,3.06,15,15,0,0,0,26,0A3.07,3.07,0,0,0,29,14.47ZM16,21a5,5,0,1,1,5-5A5,5,0,0,1,16,21Z" fill="#000000" fill-rule="nonzero"></path><circle cx="16" cy="16" r="3" fill="#000000" fill-rule="nonzero"></circle></g></svg>
               </a>
-              <a href="javascript:void(0);" class="btn btn-secondary light mr-2 edit_account_btn" data-id="${c._id}">
+              <a href="javascript:void(0);" class="btn btn-secondary light mr-2 edit_account_btn" data-id="${row._id}">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
                   <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <rect x="0" y="0" width="24" height="24"></rect>
@@ -83,49 +85,45 @@ function cagarTablaMovimientos() {
 
         }
       }
-    ],
-    columnDefs: [{
-      targets: 6,
-      className: 'action-btn wspace-no'
-    }]
+    ]
   });
 }
-function renderCuentas() {
-  let content = '';
-  g__cuentas.forEach((c, i) => {
-    content += `
-      <div class="col-xl-3 col-xxl-4  col-md-4 col-sm-6">
-        <div class="card">
-          <div class="Accounts2 card-body">
-            <div class="text-center">
-              <span>
-                <svg class="mb-2" xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71">
-                  <g  transform="translate(-457 -443)">
-                  <rect  width="71" height="71" rx="12" transform="translate(457 443)" fill="${c.color}"></rect>
-                  <g  transform="translate(457 443)">
-                    <rect  data-name="placeholder" width="71" height="71" rx="12" fill="${c.color}"></rect>
-                    <circle  data-name="Ellipse 12" cx="18" cy="18" r="18" transform="translate(15 20)" fill="#fff"></circle>
-                    <circle  data-name="Ellipse 11" cx="11" cy="11" r="11" transform="translate(36 15)" fill="#ffe70c" style="mix-blend-mode: multiply;isolation: isolate"></circle>
-                  </g>
-                  </g>
-                </svg>
-              </span>
-              <h4 class="fs-20 mb-0">${c.cuenta}</h4>
-              <span class="text-primary mb-3 d-block">${c.categoria}</span>
-            </div>
-            <div class="">
-              <span class="d-block mb-1"><i class="fas fa-info me-2"></i>${c.descripcion}</span>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-      `;
-  });
-
-  $('#contenedor_cuentas').html(content);
-}
+// function renderCuentas() {
+//   let content = '';
+//   g__cuentas.forEach((c, i) => {
+//     content += `
+//       <div class="col-xl-3 col-xxl-4  col-md-4 col-sm-6">
+//         <div class="card">
+//           <div class="Accounts2 card-body">
+//             <div class="text-center">
+//               <span>
+//                 <svg class="mb-2" xmlns="http://www.w3.org/2000/svg" width="71" height="71" viewBox="0 0 71 71">
+//                   <g  transform="translate(-457 -443)">
+//                   <rect  width="71" height="71" rx="12" transform="translate(457 443)" fill="${c.color}"></rect>
+//                   <g  transform="translate(457 443)">
+//                     <rect  data-name="placeholder" width="71" height="71" rx="12" fill="${c.color}"></rect>
+//                     <circle  data-name="Ellipse 12" cx="18" cy="18" r="18" transform="translate(15 20)" fill="#fff"></circle>
+//                     <circle  data-name="Ellipse 11" cx="11" cy="11" r="11" transform="translate(36 15)" fill="#ffe70c" style="mix-blend-mode: multiply;isolation: isolate"></circle>
+//                   </g>
+//                   </g>
+//                 </svg>
+//               </span>
+//               <h4 class="fs-20 mb-0">${c.cuenta}</h4>
+//               <span class="text-primary mb-3 d-block">${c.categoria}</span>
+//             </div>
+//             <div class="">
+//               <span class="d-block mb-1"><i class="fas fa-info me-2"></i>${c.descripcion}</span>
+//             </div>
+//
+//           </div>
+//
+//         </div>
+//       </div>
+//       `;
+//   });
+//
+//   $('#contenedor_cuentas').html(content);
+// }
 /********************** FInal  Datatable ****************************/
 $('body').off();
 
@@ -264,12 +262,6 @@ function crearMovimiento() {
 }
 /********************** Final Funciones del CRUD ***************************/
 
-
-
-
-
-
-
 // CREAR NUEVA CATEGORIA
 $('#add_category').on('click', function(){
 
@@ -284,8 +276,6 @@ $('#add_category').on('click', function(){
   `
   __showModal('Add category', content, actions)
 })
-
-
 
 function addCategory(){
   const CAT = $('#new_category_name').val()
@@ -310,12 +300,6 @@ function addCategory(){
   })
 
 }
-
-
-
-
-
-
 
 /********************** Otras Funciones ***************************/
 
@@ -467,11 +451,6 @@ $('body').on('click', '#add_account_btn', function(e) {
 
 
 });
-
-
-
-
-
 $('body').on('click', '.view_account_btn', function(e) {
   var data = g__cuentas.find(x => x._id == $(this).data('id'));
   let content = `
@@ -609,22 +588,18 @@ Number.prototype.format = function(n, x, s, c) {
 };
 /********************** Final Funciones ***************************/
 
-
-
-
-
 /********************** Carga de catalogos ***************************/
 function cargarCuentas() {
-  fetch(`<?=API_PATH?>dashboard/read.php`)
+  fetch(`<?=API_PATH?>dashboard/read.php?pagesize=999999999`)
     .then(response => response.json())
     .then(r => {
       g__cuentas = r.data.cuentas
     })
-    .then(() => renderCuentas());
+    .then(() => cagarTablaCuentas());
 }
 
 function cargarCategorias() {
-  fetch(`<?=API_PATH?>cat_categoria/read.php`)
+  fetch(`<?=API_PATH?>cat_categoria/read.php?pagesize=999999999`)
     .then(response => response.json())
     .then(r => {
       g__categorias = r.data.records
@@ -647,11 +622,6 @@ function crearCuentaFetch(data){
     });
 }
 /********************** Final Carga de catalogos ***************************/
-
-
-
-
-
 
 /********************** Validaciones ***************************/
 function validaciones(data) {

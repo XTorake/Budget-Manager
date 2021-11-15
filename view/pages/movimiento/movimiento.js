@@ -517,7 +517,7 @@ $('body').on('click', '#edit_confirm_btn', function(e) {
 /********************** Carga de catalogos ***************************/
 
 function cargarMovimientos() {
-  fetch(`<?=API_PATH?>movimiento/read.php`)
+  fetch(`<?=API_PATH?>movimiento/read.php?pagesize=999999999`)
     .then(response => response.json())
     .then(r => {
       g__movimientos = r.data.records
