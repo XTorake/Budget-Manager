@@ -3,6 +3,21 @@
   <hr>
 <?php endif; ?>
 <!-- <a href="?<?=ADMIN_VIEW?>"> Go To Admin </a> -->
+<?php
+
+if(isset($_GET['category'])){
+  ?>
+  
+  <div class="alert alert-warning">
+    Showing budgets in the category of: <?=$_GET['cat_name']?>
+    <a href="?p=cuenta" class="btn btn-primary">Remove Filter</a>
+  </div>
+
+  <?php
+}
+
+?>
+
 <div class="row page-titles">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active"><a href="javascript:void(0)">Budgets</a></li>

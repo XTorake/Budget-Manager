@@ -286,32 +286,32 @@ $this->activo = $row['activo'];
   		$stmt = $this->conn->prepare($query);
 
   		// sanitize
-
-$this->id_cuenta=htmlspecialchars(strip_tags($this->id_cuenta));
-$this->id_usuario=htmlspecialchars(strip_tags($this->id_usuario));
-$this->fecha=htmlspecialchars(strip_tags($this->fecha));
-$this->monto=htmlspecialchars(strip_tags($this->monto));
-$this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
-$this->es_gasto=htmlspecialchars(strip_tags($this->es_gasto));
-$this->visto=htmlspecialchars(strip_tags($this->visto));
-$this->activo=htmlspecialchars(strip_tags($this->activo));
+		$this->id_cuenta=htmlspecialchars(strip_tags($this->id_cuenta));
+		$this->id_usuario=htmlspecialchars(strip_tags($this->id_usuario));
+		$this->fecha=htmlspecialchars(strip_tags($this->fecha));
+		$this->monto=htmlspecialchars(strip_tags($this->monto));
+		$this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
+		$this->es_gasto=htmlspecialchars(strip_tags($this->es_gasto));
+		$this->visto=htmlspecialchars(strip_tags($this->visto));
+		$this->activo=htmlspecialchars(strip_tags($this->activo));
 
   		// bind values
 
-$stmt->bindParam(":id_cuenta", $this->id_cuenta);
-$stmt->bindParam(":id_usuario", $this->id_usuario);
-$stmt->bindParam(":fecha", $this->fecha);
-$stmt->bindParam(":monto", $this->monto);
-$stmt->bindParam(":descripcion", $this->descripcion);
-$stmt->bindParam(":es_gasto", $this->es_gasto);
-$stmt->bindParam(":visto", $this->visto);
-$stmt->bindParam(":activo", $this->activo);
+		$stmt->bindParam(":id_cuenta", $this->id_cuenta);
+		$stmt->bindParam(":id_usuario", $this->id_usuario);
+		$stmt->bindParam(":fecha", $this->fecha);
+		$stmt->bindParam(":monto", $this->monto);
+		$stmt->bindParam(":descripcion", $this->descripcion);
+		$stmt->bindParam(":es_gasto", $this->es_gasto);
+		$stmt->bindParam(":visto", $this->visto);
+		$stmt->bindParam(":activo", $this->activo);
 
   		// execute query
   		if($stmt->execute()){
   			return  $this->conn->lastInsertId();
   		}
-
+		
+		//var_dump($stmt->errorInfo());
   		return 0;
 
   	}
