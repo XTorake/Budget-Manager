@@ -16,7 +16,7 @@ class Database{
 
 
       // Live ENVIROMENT
-      if (true) {
+      if (false) {
         $this->db_name = 'u242079499_budgeting';
         $this->username = 'u242079499_budgeting';
         $this->password = 'vG|//9?vYcK9';

@@ -58,47 +58,15 @@ if(!isEmpty($data->id_cuenta)
 
   // *****************************************************************************
   // set movimiento property values
-
-if(!isEmpty($data->id_cuenta)) { 
-$movimiento->id_cuenta = $data->id_cuenta;
-} else {
-$movimiento->id_cuenta = '';
-}
-if(!isEmpty($data->id_usuario)) {
-$movimiento->id_usuario = $data->id_usuario;
-} else {
-$movimiento->id_usuario = '';
-}
-if(!isEmpty($data->fecha)) {
-$movimiento->fecha = $data->fecha;
-} else {
-$movimiento->fecha = '';
-}
-if(!isEmpty($data->monto)) {
-$movimiento->monto = $data->monto;
-} else {
-$movimiento->monto = '';
-}
-if(!isEmpty($data->descripcion)) {
-$movimiento->descripcion = $data->descripcion;
-} else {
-$movimiento->descripcion = '';
-}
-if(!isEmpty($data->es_gasto)) {
-$movimiento->es_gasto = $data->es_gasto;
-} else {
-$movimiento->es_gasto = '1';
-}
-if(!isEmpty($data->visto)) {
-$movimiento->visto = $data->visto;
-} else {
-$movimiento->visto = '2';
-}
-if(!isEmpty($data->activo)) {
-$movimiento->activo = $data->activo;
-} else {
-$movimiento->activo = '1';
-}
+  $movimiento->id_cuenta = $data->id_cuenta;
+  $movimiento->id_usuario = $data->id_usuario;
+  $movimiento->fecha = $data->fecha;
+  $movimiento->monto = $data->monto;
+  $movimiento->descripcion = $data->descripcion;
+  $movimiento->es_gasto = $data->es_gasto;
+  $movimiento->visto = $data->visto;
+  $movimiento->activo = $data->activo;
+  
   $inserted = $movimiento->create();
 
 
