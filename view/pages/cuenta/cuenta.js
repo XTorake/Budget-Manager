@@ -25,11 +25,21 @@ init();
 
 /********************** Datatable ****************************/
 function cagarTablaCuentas() {
+
+
+  let filter = retrieveGET('category');
+  let cuentas = g__cuentas;
+
+  if(filter){
+    cuentas = g__cuentas.filter( x => x.id_categoria == filter )
+  }
+
+
   if (g__cuentas_datatable) {
     g__cuentas_datatable.destroy();
   }
   g__cuentas_datatable = $('#contenedor_cuentas').DataTable({
-    data: g__cuentas,
+    data: cuentas,
     destroy: true,
     responsive: true,
     pagingType: 'full',
@@ -88,6 +98,9 @@ function cagarTablaCuentas() {
     ]
   });
 }
+
+
+
 function renderCuentas() {
   let content = '';
 
